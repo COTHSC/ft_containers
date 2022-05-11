@@ -54,5 +54,13 @@ int main()
   testStr.reserve(21);
   std::cout << testStr.capacity() << std::endl;
 
+  std::cout << testStr << std::endl;
+  std::cout << testStr.size() << std::endl;
+  testStr.resize(2);
+  std::cout << testStr.size() << std::endl;
+  std::cout << testStr << std::endl;
+  testStr.resize(10);
+  std::cout << testStr.size() << std::endl;
+  std::cout << testStr << std::endl;
   return 0;
 }
