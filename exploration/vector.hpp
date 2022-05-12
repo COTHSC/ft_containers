@@ -2,11 +2,69 @@
 
 namespace ft {
   
-  template<typename Vector> class vectorIterator {
+  template<typename Vector> class constVectorIterator {
 
     typedef Vector value_type;
     typedef value_type* pointer_type;
 
+    public:
+      constVectorIterator(){};
+      constVectorIterator(const constVectorIterator &rhs) : _ptr(rhs._ptr) {};
+      constVectorIterator(pointer_type ptr) : _ptr(ptr) {};
+      ~constVectorIterator(){};
+
+      constVectorIterator& operator=(constVectorIterator const &rhs) {
+        _ptr = rhs._ptr;
+      };      
+
+      bool operator==(constVectorIterator const &rhs) {
+        return (_ptr == rhs._ptr);
+      };      
+
+      bool operator!=(constVectorIterator const &rhs) {
+        return !(_ptr == rhs._ptr);
+      };      
+
+	constVectorIterator &operator++(void)
+	{
+		_ptr += 1;
+		return *this;
+	};
+
+	constVectorIterator operator++(int)
+	{
+		constVectorIterator tmp(*this);
+		_ptr += 1;
+		return tmp;
+	};
+
+	constVectorIterator &operator--(void)
+	{
+		_ptr -= 1;
+		return *this;
+	};
+
+	constVectorIterator operator--(int)
+	{
+		constVectorIterator tmp(*this);
+		_ptr -= 1;
+		return tmp;
+	};
+
+    value_type operator*() {
+        return *_ptr;
+    };
+
+    private:
+      pointer_type _ptr;
+  };
+
+  template<typename Vector> class vectorIterator {
+
+    typedef Vector value_type;
+    typedef size_t size_type;
+    typedef value_type* pointer_type;
+    typedef std::ptrdiff_t							difference_type;
     public:
       vectorIterator(){};
       vectorIterator(const vectorIterator &rhs) : _ptr(rhs._ptr) {};
@@ -24,6 +82,11 @@ namespace ft {
       bool operator!=(vectorIterator const &rhs) {
         return !(_ptr == rhs._ptr);
       };      
+
+    difference_type operator[](size_type idx) { 
+        return _ptr[idx];
+         
+    };
 
 	vectorIterator &operator++(void)
 	{
@@ -61,6 +124,7 @@ namespace ft {
 
   template<class T, class Allocator = std::allocator<T> > class vector
   {
+    public:
     typedef T value_type;
     typedef Allocator allocator_type;
     typedef std::size_t size_type;
@@ -68,8 +132,8 @@ namespace ft {
     typedef typename Allocator::pointer pointer;
     typedef typename Allocator::const_pointer const_pointer;
 
-    public:
     typedef vectorIterator<T> iterator;
+    typedef constVectorIterator<const T> const_iterator;
     vector() : _size(0), _capacity(0)
     {
     };
@@ -96,6 +160,14 @@ namespace ft {
 
     iterator begin() {
       return iterator(_array);
+    };
+
+    const_iterator begin() const {
+      return const_iterator(_array);
+    };
+
+    const_iterator end() const {
+      return const_iterator(_array + _size);
     };
 
     iterator end() {
