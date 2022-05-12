@@ -1,4 +1,4 @@
-#include "Vector2.hpp"
+#include "vector.hpp"
 
 int main()
 {
@@ -62,5 +62,8 @@ int main()
   testStr.resize(10);
   std::cout << testStr.size() << std::endl;
   std::cout << testStr << std::endl;
+
+
+  ft::vector<int>::iterator It = test.begin();
   return 0;
 }
