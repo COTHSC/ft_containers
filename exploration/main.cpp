@@ -65,5 +65,10 @@ int main()
 
 
   ft::vector<int>::iterator It = test.begin();
+  while (It != test.end())
+  {
+     std::cout << *It << std::endl;
+     It++;
+  }
   return 0;
 }

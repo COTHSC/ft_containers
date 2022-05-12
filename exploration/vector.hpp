@@ -9,18 +9,57 @@ namespace ft {
 
     public:
       vectorIterator(){};
+      vectorIterator(const vectorIterator &rhs) : _ptr(rhs._ptr) {};
       vectorIterator(pointer_type ptr) : _ptr(ptr) {};
       ~vectorIterator(){};
 
       vectorIterator& operator=(vectorIterator const &rhs) {
-        _ptr = rhs.ptr;
+        _ptr = rhs._ptr;
       };      
+
+      bool operator==(vectorIterator const &rhs) {
+        return (_ptr == rhs._ptr);
+      };      
+
+      bool operator!=(vectorIterator const &rhs) {
+        return !(_ptr == rhs._ptr);
+      };      
+
+	vectorIterator &operator++(void)
+	{
+		_ptr += 1;
+		return *this;
+	};
+
+	vectorIterator operator++(int)
+	{
+		vectorIterator tmp(*this);
+		_ptr += 1;
+		return tmp;
+	};
+
+	vectorIterator &operator--(void)
+	{
+		_ptr -= 1;
+		return *this;
+	};
+
+	vectorIterator operator--(int)
+	{
+		vectorIterator tmp(*this);
+		_ptr -= 1;
+		return tmp;
+	};
+
+    value_type operator*() {
+        return *_ptr;
+    };
 
     private:
       pointer_type _ptr;
   };
 
-  template<class T, class Allocator = std::allocator<T>> class vector
+  template<class T, class Allocator = std::allocator<T> > class vector
   {
     typedef T value_type;
     typedef Allocator allocator_type;
@@ -158,7 +197,7 @@ namespace ft {
         _array = tmp;
         _offset_by_n(n);
       }
-      int i = _size;
+      size_type i = _size;
       while (i >= start_point)
         _array[--i + n] = _array[i];
     };
