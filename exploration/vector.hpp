@@ -1,5 +1,29 @@
 #include <iostream>
 #include "vectorIterator.hpp"
+#include "is_integral.hpp"
+static	class ft_nullptr_t
+	{
+		private:
+			void operator& () const; //no sens to get adress of nullptr
+
+		public:
+			template <class T>
+				operator T* () const { return 0;}
+			template <class C, class T> 
+				operator T C::* () const { return 0;}
+	} ft_nullptr_t = {};
+
+
+template<bool Condition, typename T = void>
+struct enable_if
+{
+};
+ 
+template<typename T>
+struct enable_if<true, T>
+{
+    typedef T type;
+};
 
 namespace ft {
   
@@ -7,6 +31,8 @@ namespace ft {
   {
     public:
     typedef T value_type;
+    typedef value_type& reference;
+    typedef value_type const & const_reference;
     typedef Allocator allocator_type;
     typedef std::size_t size_type;
     typedef std::ptrdiff_t difference_type;
@@ -15,15 +41,22 @@ namespace ft {
 
     typedef vectorIterator<T> iterator;
     typedef vectorIterator<const T> const_iterator;
+    typedef vectorIterator<T> input_iterator;
     
-    /* constructors and destructors */
-    vector() : _size(0), _capacity(0)
-    {
+    /* jconstructors and destructors */
+
+    explicit vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _allocator(alloc) {}  ;
+
+
+
+
+    template <class InputIterator>vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
+        assign(first, last);
     };
 
-    explicit vector(const Allocator& alloc ) : _size(0), _capacity(0), _allocator(alloc) 
-    {
-    };
+//  vector() : _size(0), _capacity(0)
+//  {
+//  };
 
     explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator()) : _size(count), _capacity(_size *2), _allocator(alloc), _array(_allocator.allocate(_capacity)) {
       for (size_type i = 0; i < _size ; ++i) {
@@ -37,10 +70,21 @@ namespace ft {
       }
     };
 
+    vector &operator=(const vector& rhs) {
+       this->resize(rhs.size());
+       for (size_type i = 0; i < this->size(); i++)
+           _array[i] = rhs[i];
+       return *this;
+    }
     ~vector() {
-      _allocator.deallocate(_array, _capacity);
+        if (_size)
+            _allocator.deallocate(_array, _capacity);
     };
 
+    void clear() {
+        while (_size)
+            pop_back();
+    };
     iterator begin() {
       return iterator(&_array[0]);
     };
@@ -72,24 +116,73 @@ namespace ft {
     size_type capacity() const {
       return _capacity;
     };
-    //iterator insert (iterator position, const value_type& val);
-    //void insert() {};
+
+    void assign (size_type n, const value_type& val) {
+        _size = 0;
+        while (_size < n) {
+            push_back(val);
+        }
+    };
+
+    template <class InputIterator>
+        void    assign(InputIterator first, InputIterator last, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t) {
+            _size = 0;
+            while (first != last)
+            {
+                push_back(*first);
+                ++first;
+            }
+        };
+
+    //TODO refactor this, the solution for unnalocated arrays is ugly
     void push_back(const value_type& val) {
-      if (_size == _capacity)
+      if (_size >= _capacity)
       {
         value_type *tmp;
+        if (!_capacity)
+        {
+            _capacity = 2; 
+            _array = _allocator.allocate(_capacity); 
+            _allocator.construct(_array + _size, val);
+            ++_size;
+            return;
+        }
         _capacity = _capacity * 2;
         tmp = _allocator.allocate(_capacity); 
         for (size_type i = 0; i < _size ; ++i) {
           _allocator.construct(tmp + i, _array[i]);
         }
-        _allocator.deallocate(_array, _capacity);
+        if (_capacity)
+            _allocator.deallocate(_array, _capacity);
         _array = tmp;
       }
       _allocator.construct(_array + _size, val);
       ++_size;
     };
 
+    reference at (size_type n) {
+        if (n >= _size)
+            throw std::out_of_range("exception");
+        return (_array[n]);
+    };
+    const_reference at (size_type n) const {
+        if (n >= _size)
+            throw std::out_of_range("exception");
+        return (_array[n]);
+    };
+    reference front() {
+        return (_array[0]);
+    };
+    const_reference front() const {
+        return (_array[0]);
+    };
+    reference back() {
+        return (_array[_size-1]);
+    };
+    const_reference back() const
+    {
+        return (_array[_size-1]);
+    };
     void reserve (size_type n) {
       if (n > _capacity)
       {
@@ -99,7 +192,8 @@ namespace ft {
         for (size_type i = 0; i < _size ; ++i) {
           _allocator.construct(tmp + i, _array[i]);
         }
-        _allocator.deallocate(_array, _capacity);
+        if (_capacity)
+            _allocator.deallocate(_array, _capacity);
         _array = tmp;
       }
     };
@@ -125,8 +219,8 @@ namespace ft {
     };
 
     bool operator==(const vector& rhs) const;
-    value_type operator[](size_type idx) { return _array[idx]; };
-    const value_type operator[](size_type idx) const { return _array[idx]; };
+    reference operator[](size_type n) { return _array[n]; };
+    const_reference operator[] (size_type n) const {return _array[n];};
     bool operator!=(const vector& rhs) const;
 
     allocator_type get_allocator() const {

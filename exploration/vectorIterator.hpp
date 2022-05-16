@@ -3,13 +3,13 @@ namespace ft {
 
   template<typename vector> class vectorIterator {
 
+    public:
     typedef vector value_type;
     typedef vector& reference_type;
     typedef size_t size_type;
     typedef value_type* pointer_type;
-    typedef std::ptrdiff_t							difference_type;
+    typedef std::ptrdiff_t difference_type;
 
-    public:
     vectorIterator(){};
     vectorIterator(const vectorIterator &rhs) : _ptr(rhs._ptr) {};
 //    vectorIterator(pointer_type ptr) : _ptr(ptr) {};
@@ -19,6 +19,7 @@ namespace ft {
 
     vectorIterator& operator=(vectorIterator const &rhs) {
       _ptr = rhs._ptr;
+      return *this;
     };      
 
     operator vectorIterator< const vector>() const;
@@ -33,6 +34,20 @@ namespace ft {
     reference_type operator[](size_type idx) { 
       return *(_ptr + idx);
     };
+
+    vectorIterator& operator+(size_type idx) { 
+      _ptr += idx;
+      return *this; 
+    };
+    
+    difference_type operator-(vectorIterator& rhs)  {
+       return (_ptr - rhs._ptr); 
+    }; 
+    
+    vectorIterator& operator-(difference_type diff) {
+        _ptr -= diff;
+        return (*this); 
+    }; 
 
     vectorIterator &operator++(void)
     {
@@ -60,12 +75,11 @@ namespace ft {
       return tmp;
     };
 
-    value_type operator*() {
+    reference_type operator*() {
       return *_ptr;
     };
 
     private:
     pointer_type _ptr;
   };
-
 }

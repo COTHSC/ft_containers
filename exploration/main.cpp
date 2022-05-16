@@ -67,6 +67,7 @@ int main()
   std::cout << testStr.size() << std::endl;
   std::cout << testStr << std::endl;
   testStr.resize(10);
+  testStr.resize(5);
   std::cout << testStr.size() << std::endl;
   std::cout << testStr << std::endl;
 
@@ -78,8 +79,13 @@ int main()
   {
       std::cout << *It << std::endl;
       std::cout << It[0] << std::endl;
-      
+      *It = 1;
       It++;
   }
+  
+  ft::vector<std::string>::input_iterator first = testStr.begin();
+  ft::vector<std::string>::input_iterator last = testStr.begin() + 2;
+  testCpy.assign(first, last);
+  test.assign(2, 7);
   return 0;
 }
