@@ -1,127 +1,8 @@
 #include <iostream>
+#include "vectorIterator.hpp"
 
 namespace ft {
   
-  template<typename Vector> class constVectorIterator {
-
-    typedef Vector value_type;
-    typedef value_type* pointer_type;
-
-    public:
-      constVectorIterator(){};
-      constVectorIterator(const constVectorIterator &rhs) : _ptr(rhs._ptr) {};
-      constVectorIterator(pointer_type ptr) : _ptr(ptr) {};
-      ~constVectorIterator(){};
-
-      constVectorIterator& operator=(constVectorIterator const &rhs) {
-        _ptr = rhs._ptr;
-      };      
-
-      bool operator==(constVectorIterator const &rhs) {
-        return (_ptr == rhs._ptr);
-      };      
-
-      bool operator!=(constVectorIterator const &rhs) {
-        return !(_ptr == rhs._ptr);
-      };      
-
-	constVectorIterator &operator++(void)
-	{
-		_ptr += 1;
-		return *this;
-	};
-
-	constVectorIterator operator++(int)
-	{
-		constVectorIterator tmp(*this);
-		_ptr += 1;
-		return tmp;
-	};
-
-	constVectorIterator &operator--(void)
-	{
-		_ptr -= 1;
-		return *this;
-	};
-
-	constVectorIterator operator--(int)
-	{
-		constVectorIterator tmp(*this);
-		_ptr -= 1;
-		return tmp;
-	};
-
-    value_type operator*() {
-        return *_ptr;
-    };
-
-    private:
-      pointer_type _ptr;
-  };
-
-  template<typename Vector> class vectorIterator {
-
-    typedef Vector value_type;
-    typedef size_t size_type;
-    typedef value_type* pointer_type;
-    typedef std::ptrdiff_t							difference_type;
-    public:
-      vectorIterator(){};
-      vectorIterator(const vectorIterator &rhs) : _ptr(rhs._ptr) {};
-      vectorIterator(pointer_type ptr) : _ptr(ptr) {};
-      ~vectorIterator(){};
-
-      vectorIterator& operator=(vectorIterator const &rhs) {
-        _ptr = rhs._ptr;
-      };      
-
-      bool operator==(vectorIterator const &rhs) {
-        return (_ptr == rhs._ptr);
-      };      
-
-      bool operator!=(vectorIterator const &rhs) {
-        return !(_ptr == rhs._ptr);
-      };      
-
-    difference_type operator[](size_type idx) { 
-        return _ptr[idx];
-         
-    };
-
-	vectorIterator &operator++(void)
-	{
-		_ptr += 1;
-		return *this;
-	};
-
-	vectorIterator operator++(int)
-	{
-		vectorIterator tmp(*this);
-		_ptr += 1;
-		return tmp;
-	};
-
-	vectorIterator &operator--(void)
-	{
-		_ptr -= 1;
-		return *this;
-	};
-
-	vectorIterator operator--(int)
-	{
-		vectorIterator tmp(*this);
-		_ptr -= 1;
-		return tmp;
-	};
-
-    value_type operator*() {
-        return *_ptr;
-    };
-
-    private:
-      pointer_type _ptr;
-  };
-
   template<class T, class Allocator = std::allocator<T> > class vector
   {
     public:
@@ -133,7 +14,9 @@ namespace ft {
     typedef typename Allocator::const_pointer const_pointer;
 
     typedef vectorIterator<T> iterator;
-    typedef constVectorIterator<const T> const_iterator;
+    typedef vectorIterator<const T> const_iterator;
+    
+    /* constructors and destructors */
     vector() : _size(0), _capacity(0)
     {
     };
@@ -159,21 +42,21 @@ namespace ft {
     };
 
     iterator begin() {
-      return iterator(_array);
+      return iterator(&_array[0]);
     };
 
-    const_iterator begin() const {
-      return const_iterator(_array);
-    };
-
-    const_iterator end() const {
-      return const_iterator(_array + _size);
+    const_iterator begin() const { 
+      return const_iterator(&_array[0]); 
     };
 
     iterator end() {
-      return iterator(_array + _size);
+      return iterator(&_array[_size]);
     };
 
+    const_iterator end() const {
+      return const_iterator(&_array[_size]);
+    };
+    
     size_type size() const {
       return _size;
     };

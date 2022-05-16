@@ -3,7 +3,7 @@
 void print(ft::vector<int> const &vct)
 {
 
-    (void)vct;
+  //  (void)vct;
     ft::vector<int>::const_iterator it = vct.begin();
 }
 
@@ -73,9 +73,12 @@ int main()
 
   ft::vector<int>::iterator It = test.begin();
   ft::vector<int>::iterator constIt = test.begin();
+  It[2] = 1;
   while (It != test.end())
   {
       std::cout << *It << std::endl;
+      std::cout << It[0] << std::endl;
+      
       It++;
   }
   return 0;

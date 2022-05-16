@@ -9,5 +9,5 @@ source fct.sh
 testedNamespace=$([[ -z "$2" ]] && echo "ft" || echo "$2")
 output_file="a.out"
 
-compile "$1" "${testedNamespace}" "${output_file}" && \
+compile "$1" "${testedNamespace}" "${output_file}" && chmod +x ${output_file}  &&\
 	./${output_file}
