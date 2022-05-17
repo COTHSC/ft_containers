@@ -13,30 +13,30 @@ int		main(void)
 
     it = vct.begin();
     TESTED_NAMESPACE::vector<TESTED_TYPE> vct_range(it, --(--ite));
-//  for (int i = 0; it != ite; ++it)
-//  {
-//  	*it = ++i * 5;
-//  }
-////it = vct.begin();
-////TESTED_NAMESPACE::vector<TESTED_TYPE> vct_copy(vct);
-////for (int i = 0; it != ite; ++it)
-////	*it = ++i * 7;
-////vct_copy.push_back(42);
-////vct_copy.push_back(21);
+    for (int i = 0; it != ite; ++it)
+    {
+    	*it = ++i * 5;
+    }
+    it = vct.begin();
+    TESTED_NAMESPACE::vector<TESTED_TYPE> vct_copy(vct);
+    for (int i = 0; it != ite; ++it)
+    	*it = ++i * 7;
+    vct_copy.push_back(42);
+    vct_copy.push_back(21);
 
-////std::cout << "\t-- PART ONE --" << std::endl;
-////printSize(vct);
-////printSize(vct_range);
-////printSize(vct_copy);
+    std::cout << "\t-- PART ONE --" << std::endl;
+    printSize(vct);
+    printSize(vct_range);
+    printSize(vct_copy);
 
-////vct = vct_copy;
-////vct_copy = vct_range;
-////vct_range.clear();
+    vct = vct_copy;
+    vct_copy = vct_range;
+    vct_range.clear();
 
-////std::cout << "\t-- PART TWO --" << std::endl;
-////printSize(vct);
-////printSize(vct_range);
-////printSize(vct_copy);
+    std::cout << "\t-- PART TWO --" << std::endl;
+    printSize(vct);
+    printSize(vct_range);
+    printSize(vct_copy);
 	return (0);
 }
 

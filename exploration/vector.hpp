@@ -4,7 +4,7 @@
 static	class ft_nullptr_t
 	{
 		private:
-			void operator& () const; //no sens to get adress of nullptr
+			void operator& () const;
 
 		public:
 			template <class T>
@@ -41,7 +41,8 @@ namespace ft {
 
     typedef vectorIterator<T> iterator;
     typedef vectorIterator<const T> const_iterator;
-    typedef vectorIterator<T> input_iterator;
+    typedef ft::reverse_iterator<iterator> reverse_iterator;
+    typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
     
     /* jconstructors and destructors */
 
@@ -50,7 +51,7 @@ namespace ft {
 
 
 
-    template <class InputIterator>vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
+    template <class InputIterator>vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0) , _allocator(alloc) {
         assign(first, last);
     };
 
@@ -89,12 +90,28 @@ namespace ft {
       return iterator(&_array[0]);
     };
 
+    reverse_iterator rbegin() {
+      return reverse_iterator(&_array[_size - 1]);
+    };
+
+    const_reverse_iterator rbegin() const {
+      return const_reverse_iterator(&_array[_size - 1]);
+    };
+
     const_iterator begin() const { 
       return const_iterator(&_array[0]); 
     };
 
     iterator end() {
       return iterator(&_array[_size]);
+    };
+
+    reverse_iterator rend() {
+      return reverse_iterator(&_array[0] - 1);
+    };
+
+    const_reverse_iterator rend() const {
+      return const_reverse_iterator(&_array[0] - 1);
     };
 
     const_iterator end() const {
@@ -226,7 +243,36 @@ namespace ft {
     allocator_type get_allocator() const {
       return _allocator;
     }
-    
+   
+
+
+    //single element (1)	
+
+    iterator insert (iterator position, const value_type& val) {
+        iterator it = this->begin();
+        int i = 0;
+        while (it != position)
+        {
+            ++i;
+            ++it;
+        }
+        push_back(this->back());
+        
+        _offset_by_n(1, i);
+        (void)val;
+        return it;
+        
+    };
+
+    //fill (2)	
+
+    void insert (iterator position, size_type n, const value_type& val);
+
+    //range (3)	
+
+    template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last);
+
     private:
     size_type _size;
     size_type _capacity;
@@ -244,11 +290,15 @@ namespace ft {
         }
         _allocator.deallocate(_array, _capacity);
         _array = tmp;
-        _offset_by_n(n);
+        _offset_by_n(n, start_point);
       }
+     // iterator ite = this->end;     
       size_type i = _size;
       while (i >= start_point)
-        _array[--i + n] = _array[i];
+      {
+          --i;
+          _array[i + n] = _array[i];
+      }
     };
   };
 };

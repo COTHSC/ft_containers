@@ -87,5 +87,21 @@ int main()
   ft::vector<std::string>::input_iterator last = testStr.begin() + 2;
   testCpy.assign(first, last);
   test.assign(2, 7);
+  
+  ft::vector<std::string> ts(5, "waw");
+  std::cout << ts << std::endl;
+  ft::vector<std::string>::iterator it = ts.begin();
+  *it = "wow"; 
+  
+  ft::vector<std::string>::reverse_iterator rit = ts.rbegin();
+  while (rit != ts.rend())
+  {
+      std::cout << *rit << std::endl;
+      ++rit;
+  }
+  //ts.insert(it, "wow");
+  std::cout << ts << std::endl;
+    
+
   return 0;
 }
