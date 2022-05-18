@@ -83,8 +83,8 @@ int main()
       It++;
   }
   
-  ft::vector<std::string>::input_iterator first = testStr.begin();
-  ft::vector<std::string>::input_iterator last = testStr.begin() + 2;
+  ft::vector<std::string>::iterator first = testStr.begin();
+  ft::vector<std::string>::iterator last = testStr.begin() + 2;
   testCpy.assign(first, last);
   test.assign(2, 7);
   
@@ -97,9 +97,15 @@ int main()
   while (rit != ts.rend())
   {
       std::cout << *rit << std::endl;
-      ++rit;
+      //++rit;
+      //--rit;
+      rit = rit + 1;
   }
-  //ts.insert(it, "wow");
+  ts.insert(it, "wow1");
+  ts.insert(it, "wow2");
+  ts.insert(it, "wow3");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
   std::cout << ts << std::endl;
     
 
