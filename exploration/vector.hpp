@@ -204,14 +204,15 @@ namespace ft {
       if (n >= _capacity)
       {
         value_type *tmp;
-        _capacity = _capacity * 2;
-        tmp = _allocator.allocate(_capacity); 
+        //_capacity = _capacity * 2;
+        tmp = _allocator.allocate(_capacity * 2); 
         for (size_type i = 0; i < _size ; ++i) {
           _allocator.construct(tmp + i, _array[i]);
         }
         if (_capacity)
             _allocator.deallocate(_array, _capacity);
         _array = tmp;
+        _capacity = _capacity * 2;
       }
     };
 
@@ -252,18 +253,18 @@ namespace ft {
 
     iterator insert (iterator position, const value_type& val) {
         iterator it = this->begin();
+        (void)val;
         int i = 0;
-        while (it != position)
+        while (it <= position)
         {
+            std::cerr << "---------------" << std::endl;
             ++i;
             ++it;
         }
         //push_back(this->back());
          _offset_by_n(1, i);
-        *position = val;
-        //(void)n;
+         _array[i] = val;
         return it;
-        
     };
 
     //fill (2)	
@@ -295,30 +296,32 @@ namespace ft {
     void _offset_by_n(size_type n, size_type start_point) {
       if (_size + n >= _capacity - 1)
       {
-          std::cerr << "reallocating..." << std::endl;
-          reserve(_capacity * 2);
-          std::cerr << "reallocated " << _capacity << std::endl;
-     // value_type *tmp;
-     // _capacity = _capacity * 2;
-     // tmp = _allocator.allocate(_capacity); 
-     // for (size_type i = 0; i < _size ; ++i) {
-     //   _allocator.construct(tmp + i, _array[i]);
-     // }
-     // _allocator.deallocate(_array, _capacity);
-     // _array = tmp;
-     // _offset_by_n(n, start_point);
+          reserve(_size + n);
       }
-     // iterator ite = this->end;     
       size_type i = _size;
       while (i > start_point)
       {
           --i;
-          std::cerr << "this is i: " << i << " this is n: " << n << std::endl;
           _array[i + n] = _array[i];
       }
       _size += n;
-      std::cerr << "aaaaaaaaaaaaaaaaa" << i << " this is n: " << n << std::endl;
     };
+
+    void _offset_by_n(size_type n, iterator start_point) {
+      if (_size + n >= _capacity - 1)
+      {
+          reserve(_size + n);
+      }
+      reverse_iterator i = _size;
+      while (i > start_point)
+      {
+          --i;
+          _array[i + n] = _array[i];
+      }
+      _size += n;
+    };
+
+
   };
 
 template <class InputIterator1, class InputIterator2>

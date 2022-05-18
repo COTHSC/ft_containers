@@ -106,7 +106,18 @@ int main()
   ts.insert(it, "wow3");
   ts.insert(it, "wow4");
   ts.insert(it, "wow4");
-  std::cout << ts << std::endl;
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  ts.insert(it, "wow4");
+  //std::cout << ts << std::endl;
     
 
   return 0;
