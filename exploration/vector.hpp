@@ -296,6 +296,41 @@ namespace ft {
             }
         };
 
+    iterator erase( iterator pos ) {
+        difference_type index = distance(this->begin(), pos);
+        offset_by_n(1, index); 
+        pop_back();
+        return pos;
+    };
+
+    iterator erase(iterator first, iterator last ){ 
+        difference_type index = distance(this->begin(), first);
+        difference_type nb_of_elements = distance(first, last);
+        while (nb_of_elements)
+        {
+            erase(iterator(_array + index));
+            --nb_of_elements;
+        }
+        return iterator(_array + index);
+    };
+    void        swap(vector &other)
+    {
+        pointer         tmp_ptr = this->_ptr;
+        allocator_type  tmp_allocator_type = this->_alloc;
+        size_type       tmp_capacity = this->_capacity;
+        size_type       tmp_size_container = this->_size_container;
+
+        this->_alloc = other._alloc;
+        this->_ptr = other._ptr;
+        this->_capacity = other._capacity;
+        this->_size_container = other._size_container;
+
+        x._alloc = tmp_allocator_type;
+        x._ptr = tmp_ptr;
+        x._capacity = tmp_capacity;
+        x._size_container = tmp_size_container;
+    }
+
     private:
     size_type _size;
     size_type _capacity;
@@ -315,13 +350,6 @@ namespace ft {
             }
             return result;
         }
-
-  //template<class It>
-  //    typename ft::iterator_traits<It>::difference_type 
-  //    do_distance(It first, It last, ft::random_access_iterator_tag)
-  //    {
-  //        return last - first;
-  //    }
 
 
     template<class It>
@@ -343,6 +371,19 @@ namespace ft {
           _array[i + n] = _array[i];
       }
       _size += n;
+    };
+
+    void offset_by_n(size_type n, size_type start_point) {
+        size_type i = start_point;
+        if (!_size)
+            return;
+        while (i < _size - 1)
+        {
+       // std::cerr << "this is i: " << i << std::endl;
+          ++i;
+          _array[i - n] = _array[i];
+        }
+     // _size -= n;
     };
 
 //  void _offset_by_n(size_type n, iterator start_point) {

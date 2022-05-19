@@ -26,17 +26,17 @@ int		main(void)
 	checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
 	checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
 
-	vct.push_back("Hello");
-	vct.push_back("Hi there");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+    vct.push_back("Hello");
+    vct.push_back("Hi there");
+    printSize(vct);
+    checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
 
-	vct.push_back("ONE");
-	vct.push_back("TWO");
-	vct.push_back("THREE");
-	vct.push_back("FOUR");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.begin(), vct.end()));
+    vct.push_back("ONE");
+    vct.push_back("TWO");
+    vct.push_back("THREE");
+    vct.push_back("FOUR");
+    printSize(vct);
+    checkErase(vct, vct.erase(vct.begin(), vct.end()));
 
 	return (0);
 }
