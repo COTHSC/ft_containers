@@ -1,3 +1,6 @@
+#ifndef IS_INTEGRAL_HPP
+#define IS_INTEGRAL_HPP
+
 namespace ft
 {
 	template <class T,T v>
@@ -44,4 +47,4 @@ namespace ft
 	template<> 	struct is_integral<const unsigned long int> : public true_type{};
 	template<> 	struct is_integral<const unsigned long long int> : public true_type{};
 }
-
+#endif

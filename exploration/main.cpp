@@ -1,4 +1,5 @@
 #include "vector.hpp"
+#include "stack.hpp"
 
 void print(ft::vector<int> const &vct)
 {

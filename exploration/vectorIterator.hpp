@@ -1,3 +1,5 @@
+#ifndef VECTORITERATOR_HPP
+#define VECTORITERATOR_HPP
 #include <iostream>
 namespace ft {
 
@@ -312,3 +314,4 @@ template< class Iterator1, class Iterator2 >
         return (rhs.base() - lhs.base());
     };
 }; //NAMESPACE
+#endif
