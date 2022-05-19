@@ -41,7 +41,7 @@ namespace ft {
             typedef    T                                  value_type;	     
             typedef    const T*                           pointer;   
             typedef    const T&                           reference;    
-            typedef    ft::random_access_iterator_tag    iterator_category;
+            typedef    ft::random_access_iterator_tag     iterator_category;
         };
 
     template<typename vector> class vectorIterator : public ft::iterator<ft::random_access_iterator_tag, vector>{

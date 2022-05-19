@@ -78,8 +78,8 @@ namespace ft {
        return *this;
     }
     ~vector() {
-     // if (_size)
-     //     _allocator.deallocate(_array, _capacity);
+        if (_size)
+            _allocator.deallocate(_array, _capacity);
     };
 
     void clear() {
@@ -201,18 +201,22 @@ namespace ft {
         return (_array[_size-1]);
     };
     void reserve (size_type n) {
-      if (n >= _capacity)
+      while (n >= _capacity)
       {
+        size_type new_cap;
+        if (!_capacity)
+            new_cap = 1;
+        else
+            new_cap = _capacity * 2;
         value_type *tmp;
-        //_capacity = _capacity * 2;
-        tmp = _allocator.allocate(_capacity * 2); 
+        tmp = _allocator.allocate(new_cap); 
         for (size_type i = 0; i < _size ; ++i) {
           _allocator.construct(tmp + i, _array[i]);
         }
         if (_capacity)
             _allocator.deallocate(_array, _capacity);
         _array = tmp;
-        _capacity = _capacity * 2;
+        _capacity = new_cap;
       }
     };
 
@@ -253,39 +257,44 @@ namespace ft {
 
     iterator insert (iterator position, const value_type& val) {
         iterator it = this->begin();
-        (void)val;
-        int i = 0;
-        while (it <= position)
-        {
-            std::cerr << "---------------" << std::endl;
-            ++i;
-            ++it;
-        }
-        //push_back(this->back());
-         _offset_by_n(1, i);
-         _array[i] = val;
-        return it;
+        difference_type i = distance(this->begin(), position);
+        _offset_by_n(1, i);
+        _allocator.construct(_array + i, val);
+        return position;
     };
+
 
     //fill (2)	
 
-////void insert (iterator position, size_type n, const value_type& val) { 
-////    iterator it = this->begin();
-////    int i = 0;
-////    while (it != position)
-////    {
-////        ++i;
-////        ++it;
-////    }
-////    push_back(this->back());
-////    
-////    _offset_by_n(1, i);
-////};
+    void insert (iterator position, size_type n, const value_type& val) { 
+        iterator it = this->begin();
+        size_type i = 0;
+        while (it != position)
+        {
+            ++i;
+            ++it;
+        }
+        _offset_by_n(n, i);
+        size_type to_insert = n;
+        while (to_insert > 0) {
+            _allocator.construct(_array + i++, val);
+            to_insert--;
+        }
+    };
 
     //range (3)	
 
     template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last);
+        void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t ) {
+            iterator it = this->begin();
+            difference_type i = distance(this->begin(), position);
+            difference_type to_insert = distance(first, last);
+            _offset_by_n(to_insert, i);
+            while (first != last) {
+                _allocator.construct(_array + i++, *first);
+                ++first;
+            }
+        };
 
     private:
     size_type _size;
@@ -293,33 +302,66 @@ namespace ft {
     allocator_type _allocator;
     value_type *_array;
 
+    // implementation via tag dispatch, available in C++98 with constexpr removed
+
+    template<class It>
+        typename ft::iterator_traits<It>::difference_type 
+        do_distance(It first, It last)
+        {
+            typename ft::iterator_traits<It>::difference_type result = 0;
+            while (first != last) {
+                ++first;
+                ++result;
+            }
+            return result;
+        }
+
+  //template<class It>
+  //    typename ft::iterator_traits<It>::difference_type 
+  //    do_distance(It first, It last, ft::random_access_iterator_tag)
+  //    {
+  //        return last - first;
+  //    }
+
+
+    template<class It>
+        typename ft::iterator_traits<It>::difference_type 
+        distance(It first, It last)
+        {
+            return (do_distance(first, last));
+        }
+    
     void _offset_by_n(size_type n, size_type start_point) {
-      if (_size + n >= _capacity - 1)
-      {
-          reserve(_size + n);
-      }
-      size_type i = _size;
-      while (i > start_point)
-      {
+        if (_size + n >= _capacity)
+        {
+            reserve(_size + n);
+        }
+        size_type i = _size;
+        while (i > start_point)
+        {
           --i;
           _array[i + n] = _array[i];
       }
       _size += n;
     };
 
-    void _offset_by_n(size_type n, iterator start_point) {
-      if (_size + n >= _capacity - 1)
-      {
-          reserve(_size + n);
-      }
-      reverse_iterator i = _size;
-      while (i > start_point)
-      {
-          --i;
-          _array[i + n] = _array[i];
-      }
-      _size += n;
-    };
+//  void _offset_by_n(size_type n, iterator start_point) {
+//    if (_size + n >= _capacity - 1)
+//    {
+//        reserve(_size + n);
+//    }
+//    
+//    reverse_iterator i = this->rbegin();
+//    reverse_iterator pos(start_point);
+
+//    while (i.base() > start_point)
+//    {
+//        std::cerr << "am in the loop" << std::endl;
+//        *(i - n) = *(i);
+//        ++i;
+//    }
+//    _size += n;
+//  };
 
 
   };
