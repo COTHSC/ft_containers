@@ -1,3 +1,5 @@
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 #include <iostream>
 #include "vectorIterator.hpp"
 #include "is_integral.hpp"
@@ -315,20 +317,20 @@ namespace ft {
     };
     void        swap(vector &other)
     {
-        pointer         tmp_ptr = this->_ptr;
-        allocator_type  tmp_allocator_type = this->_alloc;
+        pointer         tmp_array = this->_array;
+        allocator_type  tmp_allocator = this->_allocator;
         size_type       tmp_capacity = this->_capacity;
-        size_type       tmp_size_container = this->_size_container;
+        size_type       tmp_size = this->_size;
 
-        this->_alloc = other._alloc;
-        this->_ptr = other._ptr;
+        this->_allocator = other._allocator;
+        this->_array = other._array;
         this->_capacity = other._capacity;
-        this->_size_container = other._size_container;
+        this->_size = other._size;
 
-        x._alloc = tmp_allocator_type;
-        x._ptr = tmp_ptr;
-        x._capacity = tmp_capacity;
-        x._size_container = tmp_size_container;
+        other._allocator = tmp_allocator;
+        other._array = tmp_array;
+        other._capacity = tmp_capacity;
+        other._size = tmp_size;
     }
 
     private:
@@ -464,3 +466,4 @@ bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
     return (!(lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())) || lhs == rhs);
 };
 };
+#endif
