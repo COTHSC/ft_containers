@@ -7,13 +7,15 @@ public:
   leaf *right;
   leaf *left;
   leaf *root;
-  int value;
+  std::string value;
+  int key;
 };
 
-leaf *createNode(int value) {
+leaf *createNode(int key, std::string val) {
   leaf *res = new leaf;
   if (res) {
-    res->value = value;
+    res->value = val;
+    res->key = key;
     res->right = NULL;
     res->left = NULL;
   }
@@ -23,13 +25,8 @@ leaf *createNode(int value) {
 void printBT(const std::string &prefix, const leaf *node, bool isLeft) {
   if (node != nullptr) {
     std::cout << prefix;
-
     std::cout << (isLeft ? "├──" : "└──");
-
-    // print the value of the node
     std::cout << node->value << std::endl;
-
-    // enter the next tree level - left and right branch
     printBT(prefix + (isLeft ? "│   " : "    "), node->left, true);
     printBT(prefix + (isLeft ? "│   " : "    "), node->right, false);
   }
@@ -38,12 +35,12 @@ void printBT(const std::string &prefix, const leaf *node, bool isLeft) {
 void printBT(const leaf *node) { printBT("", node, false); }
 
 int main() {
-  leaf *n1 = createNode(1);
-  leaf *n2 = createNode(2);
-  leaf *n3 = createNode(3);
-  leaf *n4 = createNode(4);
-  leaf *n5 = createNode(5);
-  leaf *n6 = createNode(6);
+  leaf *n1 = createNode(1, "one");
+  leaf *n2 = createNode(2, "two");
+  leaf *n3 = createNode(3, "three");
+  leaf *n4 = createNode(4, "four");
+  leaf *n5 = createNode(5, "five");
+  leaf *n6 = createNode(6, "six");
   n1->left = n2;
   n1->right = n3;
   n3->left = n4;
