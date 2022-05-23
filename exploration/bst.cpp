@@ -20,23 +20,6 @@ leaf *createNode(int value) {
   return res;
 }
 
-void printTabs(int numTabs) {
-  while (numTabs--)
-    std::cout << "---";
-}
-
-void printTreeRec(leaf *root, int level) {
-  if (root == NULL) {
-    std::cout << "---";
-  } else {
-    std::cout << root->value << std::endl;
-    std::cout << "|" << std::endl;
-    printTreeRec(root->left, level + 1);
-    printTabs(level);
-    printTreeRec(root->right, level + 1);
-  }
-}
-
 void printBT(const std::string &prefix, const leaf *node, bool isLeft) {
   if (node != nullptr) {
     std::cout << prefix;
@@ -53,8 +36,6 @@ void printBT(const std::string &prefix, const leaf *node, bool isLeft) {
 }
 
 void printBT(const leaf *node) { printBT("", node, false); }
-
-void printTree(leaf *root) { printTreeRec(root, 0); }
 
 int main() {
   leaf *n1 = createNode(1);
