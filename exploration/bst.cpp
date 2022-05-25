@@ -90,6 +90,12 @@ public:
     return parent;
   }
 
+  leaf *find(int key) {
+    if (!size)
+      return sentinel;
+    return find_rec(key, root);
+  }
+
   leaf *min_rec(leaf *ptr) {
     if (ptr->children[0]->_sentinel) {
       return ptr;
@@ -102,12 +108,6 @@ public:
       return ptr;
     }
     return max_rec(ptr->children[1]);
-  }
-
-  leaf *find(int key) {
-    if (!size)
-      return sentinel;
-    return find_rec(key, root);
   }
 
   leaf *find_rec(int key, leaf *ptr) {
@@ -123,6 +123,7 @@ public:
     return find_rec(key, ptr->children[1]);
   }
 
+  // deletion
   bool delete_node(int key) {
     leaf *tbdel = find(key);
     return delete_node_rec(*tbdel);
@@ -130,7 +131,6 @@ public:
 
   bool delete_node_rec(leaf &tbdel) {
     if (tbdel._sentinel) {
-      std::cerr << "NODE WAS NOT FOUND AND COULD NOT BE DELETED" << std::endl;
       return false;
     }
     if (!tbdel.children[1]->_sentinel && !tbdel.children[0]->_sentinel) {
@@ -218,10 +218,9 @@ public:
       dir = childDir(
           parent); // on which side of the grandparent is parent located
       uncle = grandparent->children[1 - dir]; // thats just how uncles work
-                                              //
-      if (uncle->_sentinel ||
-          uncle->color ==
-              BLACK) // if the uncle is a sentinel or is black go to case I56
+
+      if (uncle->color ==
+          BLACK) // if the uncle is a sentinel or is black go to case I56
         goto Case_I56;
       parent->color = BLACK;
       uncle->color = BLACK;
