@@ -186,8 +186,10 @@ public:
 
   bool RBinsert(int key, std::string val) {
     int side = 0;
+    leaf *parent;
     leaf *grandparent;
     leaf *uncle;
+    int dir;
 
     if (!size) {
       root = new leaf(key, val, sentinel, sentinel);
@@ -196,57 +198,38 @@ public:
       return true;
     }
     side = insert(key, val);
-    int dir = side - 1;
-
-    leaf *parent = cursor->parent;
-    leaf *P = cursor->parent;
+    dir = side - 1;
     cursor = find(key);
-
     while (!(parent = cursor->parent)->_sentinel) {
       // IF the parent is black its all good, just return
       if (cursor->parent->color == BLACK)
         return true;
-
       // from now on we know the parent is red
-
-      if ((grandparent = parent->parent)
-              ->_sentinel) // if the grandparent is sentinel go to case 4
-        goto Case_I4;
-
+      if ((grandparent = parent->parent)->_sentinel)
+        goto Case_parent_is_root_and_red;
       // else parent is red and grandparent is a sentinel
-
-      dir = childDir(
-          parent); // on which side of the grandparent is parent located
-      uncle = grandparent->children[1 - dir]; // thats just how uncles work
-
-      if (uncle->color ==
-          BLACK) // if the uncle is a sentinel or is black go to case I56
-        goto Case_I56;
+      dir = childDir(parent);
+      uncle = grandparent->children[1 - dir];
+      if (uncle->color == BLACK)
+        goto Case_parent_is_red_uncle_is_black;
       parent->color = BLACK;
       uncle->color = BLACK;
       grandparent->color = RED;
       cursor = grandparent;
     }
-
-  Case_I4: // P is the root and red:
+  Case_parent_is_root_and_red: // P is the root and red:
     parent->color = BLACK;
-    return true;                               // insertion complete
-                                               //
-  Case_I56:                                    // P red && U black:
-    if (cursor == parent->children[1 - dir]) { // Case_I5 (P red && U black && N
-                                               // inner grandchild of G):
-      RotateDir(parent, dir);                  // P is never the root
-      cursor = parent;                         // new current node
-      parent = grandparent->children[dir];     // new parent of N
-      // fall through to Case_I6
+    return true;
+  Case_parent_is_red_uncle_is_black:
+    if (cursor == parent->children[1 - dir]) {
+      RotateDir(parent, dir);
+      cursor = parent;
+      parent = grandparent->children[dir];
     }
-    // end of RBinsert1
-    // Case_I6 (P red && U black && N outer grandchild of G):
-    RotateDirRoot(grandparent, 1 - dir); // G may be the root
+    RotateDirRoot(grandparent, 1 - dir);
     parent->color = BLACK;
     grandparent->color = RED;
     return true; // insertion complete
-                 // end of RBinsert1
   };
 
   // insert can probably benefit from more synergy with search or find,
