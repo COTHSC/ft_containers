@@ -8,7 +8,6 @@ void print(ft::vector<int> const &vct) {
 
 int main() {
   ft::map<int, std::string> newmap;
-  ft::map<int, std::string>::iterator it;
 
   newmap.insert(ft::make_pair(1, "one"));
   newmap._red_black_tree.printBT();
@@ -22,6 +21,9 @@ int main() {
   newmap.insert(ft::make_pair(8, "eight"));
   newmap.insert(ft::make_pair(9, "nine"));
   newmap.insert(ft::make_pair(10, "ten"));
+  ft::map<int, std::string>::iterator it = newmap.begin();
+  std::cerr << (*it).second << std::endl;
+
   newmap._red_black_tree.printBT();
   // ft::map<int, std::string>::iterator it = newmap.begin();
   // ft::vector<int> test(5, 0);

@@ -21,7 +21,7 @@ public:
   typedef Compare key_compare;
   typedef Alloc allocator_type;
   typedef tree<value_type> tree_type;
-  typedef ft::iterator<value_type, node_type> iterator;
+  typedef ft::mapIterator<value_type> iterator;
   // typedef typename ft::pair<const key_type, mapped_type> value_type;
 
   explicit map(const key_compare &comp = key_compare(),
@@ -45,17 +45,18 @@ public:
       return comp(x.first, y.first);
     }
   };
-  iterator begin() { return _red_black_tree.min(); };
 
   bool insert(const value_type &value) {
     bool result = _red_black_tree.insert(value);
     return result;
   };
 
-  ft::pair<iterator, bool> insert(const value_type &value) const {
-    bool result = _red_black_tree.insert(value);
-    return result;
-  };
+  // ft::pair<iterator, bool> insert(const value_type &value) const {
+  //   bool result = _red_black_tree.insert(value);
+  //   return result;
+  // };
+
+  iterator begin() { return iterator(_red_black_tree.min()); }
 
   tree_type _red_black_tree;
 

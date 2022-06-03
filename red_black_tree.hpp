@@ -1,3 +1,5 @@
+#ifndef RED_BLACK_TREE_HPP
+#define RED_BLACK_TREE_HPP
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,6 +8,8 @@
 #define RIGHT 1
 #define left children[LEFT]
 #define right children[RIGHT]
+namespace ft {
+
 enum color_t { BLACK, RED };
 template <class T> class leaf {
 public:
@@ -490,6 +494,13 @@ public:
     return insert_rec(val);
   }
 
+  leaf_type *getLowerBound(const key_value_type &val) {
+    leaf_type *node;
+    node = find(val.first);
+    if (node->_sentinel) {
+    }
+  }
+
   int insert_rec(key_value_type &val) {
     // if (value_compare(val, cursor))
     //   return false;
@@ -539,3 +550,5 @@ protected:
   size_t size;
   Compare _comparator;
 };
+} // namespace ft
+#endif
