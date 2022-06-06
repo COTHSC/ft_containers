@@ -81,6 +81,8 @@ public:
   //   return result;
   // };
 
+  mapped_type &operator[](const key_type &key) {}
+
   iterator begin() { return iterator(_red_black_tree.min()); }
   const_iterator begin() const { return const_iterator(_red_black_tree.min()); }
   iterator end() { return iterator(_red_black_tree.max()); }

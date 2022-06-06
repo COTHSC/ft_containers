@@ -105,7 +105,7 @@ bool operator==(const leaf<T> &lhs, const leaf<U> &rhs) {
 }
 
 template <class T, class Compare = std::less<T>,
-          class Alloc = std::allocator<leaf<T>>>
+          class Alloc = std::allocator<leaf<T> > >
 class tree {
   typedef T key_value_type;
   typedef Alloc allocator_type;
