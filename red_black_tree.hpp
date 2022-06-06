@@ -32,7 +32,7 @@ public:
     children[0] = sentinel;
   };
 
-  leaf(int sentinel = 0) : _sentinel(sentinel), value(), color(BLACK){};
+  leaf(int sentinel = 0) : value(), _sentinel(sentinel), color(BLACK){};
   leaf(leaf *sentinel) {
     children[1] = sentinel;
     children[0] = sentinel;
@@ -89,15 +89,20 @@ public:
   }
 
   ~leaf(){};
-  leaf *parent;
   leaf *children[2];
   T value;
   // int key;
   bool _sentinel;
+  leaf *parent;
   enum color_t color;
 
 private:
 };
+
+template <typename T, typename U>
+bool operator==(const leaf<T> &lhs, const leaf<U> &rhs) {
+  return lhs.value == rhs.value;
+}
 
 template <class T, class Compare = std::less<T>,
           class Alloc = std::allocator<leaf<T>>>
@@ -110,7 +115,7 @@ class tree {
   typedef std::size_t size_type;
 
 public:
-  tree() {
+  tree(const value_compare &comp = value_compare()) : _comparator(comp) {
     sentinel = new leaf_type(1);
     root = sentinel;
     cursor = root;
@@ -131,13 +136,15 @@ public:
   }
 
   leaf_type *min() { return min_rec(root); }
+  leaf_type *min() const { return min_rec(root); }
   leaf_type *max() { return max_rec(root); }
-  leaf_type *min(leaf_type *subtree) { return min_rec(subtree); }
-  leaf_type *max(leaf_type *subtree) { return max_rec(subtree); }
+  leaf_type *max() const { return max_rec(root); }
+  leaf_type *min(leaf_type *subtree) const { return min_rec(subtree); }
+  leaf_type *max(leaf_type *subtree) const { return max_rec(subtree); }
 
-  leaf_type *next(int key) {
+  leaf_type *next(const key_value_type &val) const {
     cursor = root;
-    cursor = find(key);
+    cursor = find(val);
     if (cursor->_sentinel)
       return sentinel;
     if (!cursor->children[1]->_sentinel)
@@ -170,8 +177,8 @@ public:
     ng->parent = og->parent;
   }
 
-  void delete_rb(int index) {
-    cursor = find(index);
+  void delete_rb(key_value_type &val) {
+    cursor = find(val);
     if (cursor->_sentinel)
       return;
     RB_delete(cursor);
@@ -320,8 +327,8 @@ public:
     delete tbdel;
   }
 
-  leaf_type *prev(int key) {
-    cursor = find(key);
+  leaf_type *prev(key_value_type val) const {
+    cursor = find(val);
     if (cursor->_sentinel)
       return sentinel;
     if (!cursor->children[0]->_sentinel)
@@ -334,37 +341,41 @@ public:
     return parent;
   }
 
-  leaf_type *find(int key) {
+  leaf_type *find(const key_value_type &val) const {
     if (!size)
       return sentinel;
-    return find_rec(root);
+    cursor = root;
+    return find_rec(val);
   }
 
-  leaf_type *min_rec(leaf_type *ptr) {
+  leaf_type *find_rec(const key_value_type &val) const {
+    if (val.first == cursor->value.first)
+      return cursor;
+    if (!_comparator(cursor->value, val)) {
+      // if (cursor->value.first > val.first) {
+      if (cursor->children[0]->_sentinel)
+        return sentinel;
+      cursor = cursor->left;
+      return find_rec(val);
+    }
+    if (cursor->children[1]->_sentinel)
+      return sentinel;
+    cursor = cursor->right;
+    return find_rec(val);
+  }
+
+  leaf_type *min_rec(leaf_type *ptr) const {
     if (ptr->children[0]->_sentinel) {
       return ptr;
     }
     return min_rec(ptr->children[0]);
   }
 
-  leaf_type *max_rec(leaf_type *ptr) {
+  leaf_type *max_rec(leaf_type *ptr) const {
     if (ptr->children[1]->_sentinel) {
       return ptr;
     }
     return max_rec(ptr->children[1]);
-  }
-
-  leaf_type *find_rec(leaf_type *ptr) {
-    if (ptr == cursor)
-      return ptr;
-    if (_comparator(cursor->value, ptr->value)) {
-      if (ptr->children[0]->_sentinel)
-        return sentinel;
-      return find_rec(ptr->children[0]);
-    }
-    if (ptr->children[1]->_sentinel)
-      return sentinel;
-    return find_rec(ptr->children[1]);
   }
 
   // deletion
@@ -427,7 +438,6 @@ public:
     int dir;
 
     if (!size) {
-      // std::cerr << "HERE I AM" << std::endl;
       root = new leaf_type(val, sentinel);
       root->color = BLACK;
       root->parent = sentinel;
@@ -436,8 +446,7 @@ public:
     }
     side = insert_node(val);
     dir = side - 1;
-    cursor = find(val.first);
-
+    cursor = find(val);
     while (!(parent = cursor->parent)->_sentinel) {
       // IF the parent is black its all good, just return
       if (cursor->parent->color == BLACK)
@@ -494,11 +503,22 @@ public:
     return insert_rec(val);
   }
 
-  leaf_type *getLowerBound(const key_value_type &val) {
+  leaf_type *getLowerBound(const key_value_type &val) const {
     leaf_type *node;
-    node = find(val.first);
+    node = find(val);
     if (node->_sentinel) {
+      node = next(val);
     }
+    return node;
+  }
+
+  leaf_type *getUpperBound(const key_value_type &val) const {
+    leaf_type *node;
+    node = find(val);
+    if (node->_sentinel) {
+      node = prev(val);
+    }
+    return node;
   }
 
   int insert_rec(key_value_type &val) {
@@ -542,13 +562,15 @@ public:
 
   leaf_type *get_root() { return root; }
   leaf_type *get_sentinel() { return sentinel; }
+  size_type getSize() const { return 1; }
 
 protected:
   leaf_type *sentinel;
   leaf_type *root;
-  leaf_type *cursor;
+  static leaf_type *cursor;
   size_t size;
   Compare _comparator;
+  allocator_type _allocator;
 };
 } // namespace ft
 #endif
