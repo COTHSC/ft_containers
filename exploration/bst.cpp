@@ -123,6 +123,16 @@ public:
     return find_rec(key, ptr->children[1]);
   }
 
+  void RB_Transplant(leaf *u, leaf *v) {
+    if (root == sentinel) {
+      root = v;
+    } else if (u == u->parent->children[0]) {
+      u->parent->children[0] = v;
+    } else {
+      u->parent->children[1] = v;
+    }
+    v->parent = u->parent;
+  }
   // deletion
   bool delete_node(int key) {
     leaf *tbdel = find(key);
