@@ -21,12 +21,12 @@ public:
   mapIterator(mapIterator const &rhs) : currentNode(rhs.currentNode){};
   mapIterator &operator=(const mapIterator &rhs) {
     if (this != &rhs) {
-      this->currentNode = rhs->currentNode;
+      this->currentNode = rhs.currentNode;
     }
     return *this;
   }
   ~mapIterator(){};
-
+  operator mapIterator<value_type const>() const;
   T &operator*() const { return currentNode->value; };
   T *operator->() const { return &currentNode->value; };
 
@@ -49,6 +49,7 @@ public:
     if (currentNode->_sentinel) {
       currentNode = currentNode->getMax();
     } else {
+        std::cerr << "I AM IN ELSE" << std::endl;
       currentNode = currentNode->getPredecessor();
     }
     return *this;
@@ -73,16 +74,19 @@ public:
   typedef const T *pointer_type;
   typedef const T &reference;
   typedef typename ft::leaf<T> node;
+  // typedef typename ft::leaf<const T> const_node;
   // typedef typename ft::mapIterator<value_type> iterator;
 
   constMapIterator() : currentNode(){};
   constMapIterator(node *mapNode) : currentNode(mapNode){};
   constMapIterator(constMapIterator const &rhs)
       : currentNode(rhs.currentNode){};
+  constMapIterator(const mapIterator<T> &rhs) : currentNode(rhs.currentNode){};
+
   constMapIterator &operator=(const mapIterator<T> &rhs) {
-    if (this != &rhs) {
-      this->currentNode = rhs->currentNode;
-    }
+    /* if (*this != rhs) { */
+    this->currentNode = rhs.currentNode;
+    /* } */
     return *this;
   }
   ~constMapIterator(){};
@@ -92,9 +96,12 @@ public:
 
   constMapIterator &operator++() {
     if (currentNode->_sentinel)
+    {
       currentNode = currentNode->getMin();
+    }
     else {
-      currentNode->getSuccessor();
+     currentNode = currentNode->getSuccessor();
+      /* rtd::cerr << currentNode->value.first << std::endl; */
     }
     return *this;
   }

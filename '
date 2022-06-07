@@ -122,11 +122,10 @@ public:
   tree(const value_compare &comp = value_compare(),
        const allocator_type &alloc = allocator_type())
       : _comparator(comp), _allocator(alloc) {
-    // sentinel = new leaf_type(1);
-    sentinel = _allocator.allocate(sizeof(sentinel));
-    _allocator.construct(sentinel, 1);
+    sentinel = new leaf_type(1);
+    sentinel = _allocator.allocate(sizeof(leaf<key_value_type>));
 
-    // sentinel = _allocator(leaf_type(1));
+    sentinel = _allocator(leaf_type(1));
     root = sentinel;
     cursor = root;
     size = 0;
@@ -448,9 +447,7 @@ public:
     int dir;
 
     if (!size) {
-      // root = new leaf_type(val, sentinel);
-      root = _allocator.allocate(sizeof(leaf<key_value_type>));
-      _allocator.construct(root, leaf_type(val, sentinel));
+      root = new leaf_type(val, sentinel);
       root->color = BLACK;
       root->parent = sentinel;
       size++;
@@ -507,9 +504,7 @@ public:
 
   int insert_node(key_value_type val) {
     if (!size) {
-      // root = new leaf_type(val, sentinel, sentinel);
-      root = _allocator.allocate(sizeof(leaf_type));
-      _allocator.construct(root, leaf_type(val, sentinel, sentinel));
+      root = new leaf_type(val, sentinel, sentinel);
       size++;
       return true;
     }
@@ -539,21 +534,17 @@ public:
     // if (value_compare(val, cursor))
     //   return false;
     if (_comparator(val, cursor->value)) {
-      if (cursor->children[0]->_sentinel) {
-        // cursor->children[0] = new leaf_type(val, cursor, sentinel);
-        cursor->left = _allocator.allocate(sizeof(leaf_type));
-        _allocator.construct(cursor->left, leaf_type(val, cursor, sentinel));
-      } else {
+      if (cursor->children[0]->_sentinel)
+        cursor->children[0] = new leaf_type(val, cursor, sentinel);
+      else {
         cursor = cursor->children[0];
         insert_rec(val);
       }
       return 1;
     } else {
-      if (cursor->children[1]->_sentinel) {
-        // cursor->children[1] = new leaf_type(val, cursor, sentinel);
-        cursor->right = _allocator.allocate(sizeof(leaf_type));
-        _allocator.construct(cursor->right, leaf_type(val, cursor, sentinel));
-      } else {
+      if (cursor->children[1]->_sentinel)
+        cursor->children[1] = new leaf_type(val, cursor, sentinel);
+      else {
         cursor = cursor->children[1];
         insert_rec(val);
       }

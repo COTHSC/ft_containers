@@ -18,7 +18,7 @@ template <typename T> struct enable_if<true, T> { typedef T type; };
 
 namespace ft {
 
-template <class T, class Allocator = std::allocator<T>> class vector {
+template <class T, class Allocator = std::allocator<T> > class vector {
 public:
   typedef T value_type;
   typedef value_type &reference;

@@ -10,7 +10,7 @@
 
 namespace ft {
 template <class Key, class T, class Compare = std::less<Key>,
-          class Alloc = std::allocator<pair<const Key, T>>>
+          class Alloc = std::allocator<pair<const Key, T> > >
 
 class map {
 public:
@@ -28,11 +28,12 @@ public:
 
   explicit map(const key_compare &comp = key_compare(),
                const allocator_type &alloc = allocator_type())
-      : _allocator(alloc), _comparator(comp), _red_black_tree(){};
+      : _red_black_tree(), _allocator(alloc), _comparator(comp){};
 
   template <class InputIT>
   explicit map(InputIT first, InputIT last) : _red_black_tree() {
     insert(first, last);
+    /* _red_black_tree.printBT(); */
   };
   virtual ~map(){};
 
@@ -95,18 +96,21 @@ public:
       return node->value.second;
     }
     insert(ft::make_pair(key, mapped_type()));
-    node = _red_black_tree.find(key);
+    node = _red_black_tree.find(ft::make_pair(key, mapped_type()));
     return node->value.second;
   }
 
   iterator begin() { return iterator(_red_black_tree.min()); }
   const_iterator begin() const { return const_iterator(_red_black_tree.min()); }
-  iterator end() { return iterator(_red_black_tree.max()); }
-  const_iterator end() const { return const_iterator(_red_black_tree.max()); }
+  iterator end() { return iterator(_red_black_tree.max()->right); }
+  const_iterator end() const { return const_iterator(_red_black_tree.max()->right); }
 
   tree_type _red_black_tree;
   size_type size() const { return _red_black_tree.getSize(); }
   size_type max_size() const { return 1; }
+
+  key_compare key_comp() const { return _comparator; }
+  value_compare value_comp() const { return value_compare(_comparator); }
 
 private:
   allocator_type _allocator;
