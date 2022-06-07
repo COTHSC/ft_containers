@@ -81,7 +81,23 @@ public:
   //   return result;
   // };
 
-  mapped_type &operator[](const key_type &key) {}
+  pair<iterator, iterator> equal_range(const key_type &key) {
+    return (ft::make_pair(lower_bound(key), upper_bound(key)));
+  }
+
+  pair<const_iterator, const_iterator> equal_range(const key_type &key) const {
+    return (ft::make_pair(lower_bound(key), upper_bound(key)));
+  }
+
+  mapped_type &operator[](const key_type &key) {
+    node_type *node = _red_black_tree.find(ft::make_pair(key, mapped_type()));
+    if (!node->_sentinel) {
+      return node->value.second;
+    }
+    insert(ft::make_pair(key, mapped_type()));
+    node = _red_black_tree.find(key);
+    return node->value.second;
+  }
 
   iterator begin() { return iterator(_red_black_tree.min()); }
   const_iterator begin() const { return const_iterator(_red_black_tree.min()); }
