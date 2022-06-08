@@ -152,21 +152,6 @@ public:
   leaf_type *min(leaf_type *subtree) const { return min_rec(subtree); }
   leaf_type *max(leaf_type *subtree) const { return max_rec(subtree); }
 
-  leaf_type *next(const key_value_type &val) const {
-    cursor = root;
-    cursor = find(val);
-    if (cursor->_sentinel)
-      return sentinel;
-    if (!cursor->children[1]->_sentinel)
-      return min(cursor->children[1]);
-    leaf_type *parent = cursor->parent;
-    while (!parent->_sentinel && cursor == parent->children[1]) {
-      cursor = parent;
-      parent = parent->parent;
-    }
-    return parent;
-  }
-
 #define RotateDir(N, dir) RotateDirRoot(N, dir)
 #define RotateLeft(N) RotateDirRoot(N, LEFT)
 #define RotateRight(N) RotateDirRoot(N, RIGHT)
@@ -335,6 +320,7 @@ public:
       RBDeleteFixUp(x);
     }
     delete tbdel;
+    size--;
   }
 
   leaf_type *prev(key_value_type val) const {
@@ -345,6 +331,21 @@ public:
       return max(cursor->children[0]);
     leaf_type *parent = cursor->parent;
     while (!parent->_sentinel && cursor == parent->children[0]) {
+      cursor = parent;
+      parent = parent->parent;
+    }
+    return parent;
+  }
+
+  leaf_type *next(const key_value_type &val) const {
+    cursor = root;
+    cursor = find(val);
+    if (cursor->_sentinel)
+      return sentinel;
+    if (!cursor->children[1]->_sentinel)
+      return max(cursor->children[1]);
+    leaf_type *parent = cursor->parent;
+    while (!parent->_sentinel && cursor == parent->children[1]) {
       cursor = parent;
       parent = parent->parent;
     }
@@ -453,10 +454,12 @@ public:
       _allocator.construct(root, leaf_type(val, sentinel));
       root->color = BLACK;
       root->parent = sentinel;
-      size++;
+      size = 1;
       return true;
     }
     side = insert_node(val);
+    if (side)
+      size++;
     dir = side - 1;
     cursor = find(val);
     while (!(parent = cursor->parent)->_sentinel) {
@@ -510,7 +513,7 @@ public:
       // root = new leaf_type(val, sentinel, sentinel);
       root = _allocator.allocate(sizeof(leaf_type));
       _allocator.construct(root, leaf_type(val, sentinel, sentinel));
-      size++;
+      // size++;
       return true;
     }
     cursor = root;
@@ -529,9 +532,11 @@ public:
   leaf_type *getUpperBound(const key_value_type &val) const {
     leaf_type *node;
     node = find(val);
-    if (node->_sentinel) {
-      node = prev(val);
-    }
+    // if (node->_sentinel) {
+    // node = node->getSuccessor();
+    // node = prev(val);
+    node = next(val);
+    // }
     return node;
   }
 
@@ -547,6 +552,7 @@ public:
         cursor = cursor->children[0];
         insert_rec(val);
       }
+      // size++;
       return 1;
     } else {
       if (cursor->children[1]->_sentinel) {
@@ -557,6 +563,7 @@ public:
         cursor = cursor->children[1];
         insert_rec(val);
       }
+      // size++;
       return 2;
     }
     return false;
@@ -580,13 +587,14 @@ public:
 
   leaf_type *get_root() { return root; }
   leaf_type *get_sentinel() { return sentinel; }
-  size_type getSize() const { return 1; }
+  size_type getSize() const { return size; }
+  size_type getMaxSize() const { return _allocator.max_size(); }
 
 protected:
   leaf_type *sentinel;
   leaf_type *root;
   mutable leaf_type *cursor;
-  size_t size;
+  size_t size = 0;
   Compare _comparator;
   allocator_type _allocator;
 };

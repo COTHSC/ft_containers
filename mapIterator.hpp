@@ -34,7 +34,7 @@ public:
     if (currentNode->_sentinel)
       currentNode = currentNode->getMin();
     else {
-      currentNode->getSuccesor();
+      currentNode->getSuccessor();
     }
     return *this;
   }
@@ -49,7 +49,7 @@ public:
     if (currentNode->_sentinel) {
       currentNode = currentNode->getMax();
     } else {
-        std::cerr << "I AM IN ELSE" << std::endl;
+      std::cerr << "I AM IN ELSE" << std::endl;
       currentNode = currentNode->getPredecessor();
     }
     return *this;
@@ -95,12 +95,10 @@ public:
   T *operator->() const { return &currentNode->value; };
 
   constMapIterator &operator++() {
-    if (currentNode->_sentinel)
-    {
+    if (currentNode->_sentinel) {
       currentNode = currentNode->getMin();
-    }
-    else {
-     currentNode = currentNode->getSuccessor();
+    } else {
+      currentNode = currentNode->getSuccessor();
       /* rtd::cerr << currentNode->value.first << std::endl; */
     }
     return *this;

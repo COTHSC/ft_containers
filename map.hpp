@@ -10,7 +10,7 @@
 
 namespace ft {
 template <class Key, class T, class Compare = std::less<Key>,
-          class Alloc = std::allocator<pair<const Key, T> > >
+          class Alloc = std::allocator<pair<const Key, T>>>
 
 class map {
 public:
@@ -71,10 +71,35 @@ public:
     return it;
   }
 
-  iterator upper_bound(const key_type &key) const {
-    iterator it(
-        _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
+  // iterator upper_bound(const key_type &key) const {
+  //   iterator it(
+  //       _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
+  //   return it;
+  // }
+
+  const_iterator upper_bound(const key_type &key) const {
+    const_iterator it = begin();
+    while (it != end()) {
+      if (_comparator(key, (*it).first)) {
+        break;
+      }
+      it++;
+    }
     return it;
+    // iterator it(
+    //     _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
+  }
+  iterator upper_bound(const key_type &key) {
+    iterator it = begin();
+    while (it != end()) {
+      if (_comparator(key, (*it).first)) {
+        break;
+      }
+      it++;
+    }
+    return it;
+    // iterator it(
+    //     _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
   }
 
   // ft::pair<iterator, bool> insert(const value_type &value) const {
@@ -103,11 +128,13 @@ public:
   iterator begin() { return iterator(_red_black_tree.min()); }
   const_iterator begin() const { return const_iterator(_red_black_tree.min()); }
   iterator end() { return iterator(_red_black_tree.max()->right); }
-  const_iterator end() const { return const_iterator(_red_black_tree.max()->right); }
+  const_iterator end() const {
+    return const_iterator(_red_black_tree.max()->right);
+  }
 
   tree_type _red_black_tree;
   size_type size() const { return _red_black_tree.getSize(); }
-  size_type max_size() const { return 1; }
+  size_type max_size() const { return _red_black_tree.getMaxSize(); }
 
   key_compare key_comp() const { return _comparator; }
   value_compare value_comp() const { return value_compare(_comparator); }
