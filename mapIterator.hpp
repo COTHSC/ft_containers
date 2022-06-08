@@ -34,7 +34,7 @@ public:
     if (currentNode->_sentinel)
       currentNode = currentNode->getMin();
     else {
-      currentNode->getSuccessor();
+      currentNode = currentNode->getSuccessor();
     }
     return *this;
   }
@@ -49,7 +49,7 @@ public:
     if (currentNode->_sentinel) {
       currentNode = currentNode->getMax();
     } else {
-      std::cerr << "I AM IN ELSE" << std::endl;
+      // std::cerr << "I AM IN ELSE" << std::endl;
       currentNode = currentNode->getPredecessor();
     }
     return *this;

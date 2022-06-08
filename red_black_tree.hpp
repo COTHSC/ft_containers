@@ -140,10 +140,12 @@ public:
   void deallocate(leaf_type *node) {
     if (node->_sentinel)
       return;
-    deallocate(node->children[0]);
-    deallocate(node->children[1]);
+    deallocate(node->left);
+    deallocate(node->right);
     delete node;
   }
+
+  void deallocate() { deallocate(root); }
 
   leaf_type *min() { return min_rec(root); }
   leaf_type *min() const { return min_rec(root); }
@@ -590,9 +592,10 @@ public:
   size_type getSize() const { return size; }
   size_type getMaxSize() const { return _allocator.max_size(); }
 
+  leaf_type *root;
+
 protected:
   leaf_type *sentinel;
-  leaf_type *root;
   mutable leaf_type *cursor;
   size_t size = 0;
   Compare _comparator;

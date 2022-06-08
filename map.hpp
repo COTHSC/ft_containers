@@ -65,17 +65,35 @@ public:
     return result;
   };
 
-  iterator lower_bound(const key_type &key) const {
-    iterator it(
-        _red_black_tree.getLowerBound(ft::make_pair(key, mapped_type())));
+  // iterator lower_bound(const key_type &key) const {
+  //   iterator it(
+  //       _red_black_tree.getLowerBound(ft::make_pair(key, mapped_type())));
+  //   return it;
+  // }
+
+  iterator lower_bound(const key_type &key) {
+    iterator it = begin();
+    while (it != end()) {
+      if (_comparator((*it).first, key) == false) {
+        break;
+      }
+      ++it;
+    }
     return it;
   }
 
-  // iterator upper_bound(const key_type &key) const {
-  //   iterator it(
-  //       _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
-  //   return it;
-  // }
+  const_iterator lower_bound(const key_type &key) const {
+    const_iterator it = begin();
+    while (it != end()) {
+      if (_comparator((*it).first, key) == false) {
+        break;
+      }
+      ++it;
+    }
+    return it;
+  }
+
+  void clear() { _red_black_tree.deallocate(); }
 
   const_iterator upper_bound(const key_type &key) const {
     const_iterator it = begin();
@@ -83,23 +101,21 @@ public:
       if (_comparator(key, (*it).first)) {
         break;
       }
-      it++;
+      ++it;
     }
     return it;
-    // iterator it(
-    //     _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
   }
   iterator upper_bound(const key_type &key) {
     iterator it = begin();
-    while (it != end()) {
+    iterator ite = end();
+
+    while (it != ite) {
       if (_comparator(key, (*it).first)) {
         break;
       }
-      it++;
+      ++it;
     }
     return it;
-    // iterator it(
-    //     _red_black_tree.getUpperBound(ft::make_pair(key, mapped_type())));
   }
 
   // ft::pair<iterator, bool> insert(const value_type &value) const {
