@@ -47,9 +47,10 @@ public:
 
   mapIterator &operator--() {
     if (currentNode->_sentinel) {
+      // iterator it =
       currentNode = currentNode->getMax();
+      // currentNode = currentNode->parent;
     } else {
-      // std::cerr << "I AM IN ELSE" << std::endl;
       currentNode = currentNode->getPredecessor();
     }
     return *this;

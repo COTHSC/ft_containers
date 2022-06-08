@@ -36,13 +36,20 @@ public:
   leaf(leaf *sentinel) {
     children[1] = sentinel;
     children[0] = sentinel;
+    parent = this;
   };
 
   leaf<T> *getMax() {
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
-      while (!tmp->parent->_sentinel)
+      std::cerr << "We are before this loop now" << std::endl;
+      std::cerr << "this is sentinel value: " << tmp->_sentinel << std::endl;
+      std::cerr << "this is sentinel parent value: " << tmp->parent->value.first
+                << std::endl;
+      while (!tmp->parent->_sentinel) {
+        std::cerr << "We are in this loop now" << std::endl;
         tmp = tmp->parent;
+      }
     }
     while (!tmp->right->_sentinel) {
       tmp = tmp->right;
@@ -127,7 +134,9 @@ public:
     _allocator.construct(sentinel, 1);
 
     // sentinel = _allocator(leaf_type(1));
+    sentinel->parent = sentinel;
     root = sentinel;
+
     cursor = root;
     size = 0;
   };
@@ -145,7 +154,12 @@ public:
     delete node;
   }
 
-  void deallocate() { deallocate(root); }
+  void deallocate() {
+    while (size > 1) {
+      RB_delete(root);
+    }
+  };
+  // deallocate(root); }
 
   leaf_type *min() { return min_rec(root); }
   leaf_type *min() const { return min_rec(root); }
