@@ -82,6 +82,8 @@ public:
     return it;
   }
 
+  bool empty() const { return !_red_black_tree.is_empty(); }
+
   const_iterator lower_bound(const key_type &key) const {
     const_iterator it = begin();
     while (it != end()) {
@@ -93,7 +95,7 @@ public:
     return it;
   }
 
-  void clear() { _red_black_tree.deallocate(); }
+  void clear() { _red_black_tree.clearTree(); }
 
   const_iterator upper_bound(const key_type &key) const {
     const_iterator it = begin();

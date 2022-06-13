@@ -32,7 +32,12 @@ public:
     children[0] = sentinel;
   };
 
-  leaf(int sentinel = 0) : value(), _sentinel(sentinel), color(BLACK){};
+  leaf(int sentinel = 0) : value(), _sentinel(sentinel), color(BLACK) {
+    parent = this;
+    children[1] = this;
+    children[0] = this;
+  };
+
   leaf(leaf *sentinel) {
     children[1] = sentinel;
     children[0] = sentinel;
@@ -90,6 +95,10 @@ public:
   leaf<T> *getMin() {
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
+      std::cerr << "We are before this loop now" << std::endl;
+      std::cerr << "this is sentinel value: " << tmp->_sentinel << std::endl;
+      std::cerr << "this is sentinel parent value: " << tmp->parent->value.first
+                << std::endl;
       while (!tmp->parent->_sentinel)
         tmp = tmp->parent;
     }
@@ -123,11 +132,13 @@ class tree {
   typedef Compare value_compare;
   typedef leaf<T> leaf_type;
   typedef leaf<T> *leaf_ptr;
+  typedef typename allocator_type::template rebind<leaf_type>::other
+      leaf_allocator_type;
   typedef std::size_t size_type;
 
 public:
   tree(const value_compare &comp = value_compare(),
-       const allocator_type &alloc = allocator_type())
+       const allocator_type &alloc = leaf_allocator_type())
       : _comparator(comp), _allocator(alloc) {
     // sentinel = new leaf_type(1);
     sentinel = _allocator.allocate(sizeof(sentinel));
@@ -141,24 +152,65 @@ public:
     size = 0;
   };
 
+  tree &operator=(const tree &rhs) {
+    if (this != &rhs) {
+      if (size || !rhs.is_empty()) {
+        clearTree();
+      }
+      _allocator.destroy(sentinel);
+      _allocator.deallocate(sentinel, 1);
+      _comparator = Compare(rhs._comparator);
+      _allocator = leaf_allocator_type(rhs._allocator);
+      sentinel = _allocator.allocate(sizeof(sentinel));
+      _allocator.construct(sentinel, 1);
+      root = sentinel;
+      // std::cerr << "I AM HERE AMA " << std::endl;
+      if (rhs.getSize()) {
+        // std::cerr << "I AM HERE AMA " << std::endl;
+        copyLeafs(rhs.root);
+      }
+    }
+    return *this;
+  };
+
+  void copyLeafs(leaf_type *ptr) {
+    if (ptr->_sentinel) {
+      return;
+    }
+    insert(ptr->value);
+    copyLeafs(ptr->left);
+    copyLeafs(ptr->right);
+  }
+
   ~tree() {
     deallocate(root);
-    delete sentinel;
+    _allocator.destroy(sentinel);
+    _allocator.deallocate(sentinel, 1);
+    // delete sentinel;
   };
+
+  void clearTree() {
+    deallocate(root);
+    root = sentinel;
+    size = 0;
+  }
 
   void deallocate(leaf_type *node) {
     if (node->_sentinel)
       return;
     deallocate(node->left);
     deallocate(node->right);
-    delete node;
+    _allocator.destroy(node);
+    _allocator.deallocate(node, 1);
+    root = sentinel;
   }
 
-  void deallocate() {
-    while (size > 1) {
-      RB_delete(root);
-    }
-  };
+  void deallocate() { deallocate(root); };
+  // void deallocate() {
+  //   while (size >= 1) {
+  //     RB_delete(root);
+  //   }
+  // };
   // deallocate(root); }
 
   leaf_type *min() { return min_rec(root); }
@@ -335,7 +387,9 @@ public:
     if (y_original_color == BLACK) {
       RBDeleteFixUp(x);
     }
-    delete tbdel;
+    _allocator.destroy(tbdel);
+    _allocator.deallocate(tbdel, 1);
+    // delete tbdel;
     size--;
   }
 
@@ -392,6 +446,9 @@ public:
   }
 
   leaf_type *min_rec(leaf_type *ptr) const {
+    if (ptr->_sentinel) {
+      return ptr;
+    }
     if (ptr->children[0]->_sentinel) {
       return ptr;
     }
@@ -399,6 +456,8 @@ public:
   }
 
   leaf_type *max_rec(leaf_type *ptr) const {
+    if (ptr->_sentinel)
+      return ptr;
     if (ptr->children[1]->_sentinel) {
       return ptr;
     }
@@ -606,6 +665,7 @@ public:
   size_type getSize() const { return size; }
   size_type getMaxSize() const { return _allocator.max_size(); }
 
+  bool is_empty() const { return size; }
   leaf_type *root;
 
 protected:
@@ -613,7 +673,7 @@ protected:
   mutable leaf_type *cursor;
   size_t size = 0;
   Compare _comparator;
-  allocator_type _allocator;
+  leaf_allocator_type _allocator;
 };
 } // namespace ft
 #endif

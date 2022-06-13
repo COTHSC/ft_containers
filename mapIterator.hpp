@@ -39,7 +39,7 @@ public:
     return *this;
   }
 
-  mapIterator &operator++(int) {
+  mapIterator operator++(int) {
     mapIterator tmp(*this);
     operator++();
     return tmp;
