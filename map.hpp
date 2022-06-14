@@ -35,6 +35,15 @@ public:
     insert(first, last);
     /* _red_black_tree.printBT(); */
   };
+
+  explicit map(const map &og) { *this = og; };
+  map &operator=(const map &rhs) {
+    if (this != &rhs) {
+      _allocator = Alloc(rhs._allocator);
+      _red_black_tree = rhs._red_black_tree;
+    }
+    return *this;
+  };
   virtual ~map(){};
 
   class value_compare
@@ -60,11 +69,18 @@ public:
     }
   };
 
-  bool insert(const value_type &value) {
+  ft::pair<iterator, bool> insert(const value_type &value) {
     bool result = _red_black_tree.insert(value);
-    return result;
+    iterator it = _red_black_tree.find(value);
+    // std::cerr << "I AM HERE AND IT VALUE IS" << std::endl;
+    return ft::make_pair(it, result);
   };
 
+  iterator insert(iterator hint, const value_type &val) {
+    _red_black_tree.insert(val);
+    return _red_black_tree.find(val);
+    // return begin();
+  };
   // iterator lower_bound(const key_type &key) const {
   //   iterator it(
   //       _red_black_tree.getLowerBound(ft::make_pair(key, mapped_type())));

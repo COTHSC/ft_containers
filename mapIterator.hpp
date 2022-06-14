@@ -27,8 +27,8 @@ public:
   }
   ~mapIterator(){};
   operator mapIterator<value_type const>() const;
-  T &operator*() const { return currentNode->value; };
-  T *operator->() const { return &currentNode->value; };
+  reference operator*() const { return currentNode->value; };
+  pointer_type operator->() const { return &currentNode->value; };
 
   mapIterator &operator++() {
     if (currentNode->_sentinel)
@@ -49,6 +49,7 @@ public:
     if (currentNode->_sentinel) {
       // iterator it =
       currentNode = currentNode->getMax();
+      // std::cerr << currentNode->_sentinel << std::endl;
       // currentNode = currentNode->parent;
     } else {
       currentNode = currentNode->getPredecessor();
@@ -56,8 +57,8 @@ public:
     return *this;
   }
 
-  mapIterator &operator--(int) {
-    leaf<T> tmp(*this);
+  mapIterator operator--(int) {
+    mapIterator tmp(*this);
     operator--();
     return tmp;
   }
@@ -84,7 +85,7 @@ public:
       : currentNode(rhs.currentNode){};
   constMapIterator(const mapIterator<T> &rhs) : currentNode(rhs.currentNode){};
 
-  constMapIterator &operator=(const mapIterator<T> &rhs) {
+  constMapIterator &operator=(const mapIterator<T> &rhs) const {
     /* if (*this != rhs) { */
     this->currentNode = rhs.currentNode;
     /* } */
@@ -92,8 +93,8 @@ public:
   }
   ~constMapIterator(){};
 
-  T &operator*() const { return currentNode->value; };
-  T *operator->() const { return &currentNode->value; };
+  reference operator*() const { return currentNode->value; };
+  pointer_type operator->() const { return &currentNode->value; };
 
   constMapIterator &operator++() {
     if (currentNode->_sentinel) {
@@ -105,7 +106,7 @@ public:
     return *this;
   }
 
-  constMapIterator &operator++(int) {
+  constMapIterator operator++(int) {
     constMapIterator tmp(*this);
     operator++();
     return tmp;
@@ -120,8 +121,8 @@ public:
     return *this;
   }
 
-  constMapIterator &operator--(int) {
-    leaf<T> tmp(*this);
+  constMapIterator operator--(int) {
+    constMapIterator tmp(*this);
     operator--();
     return tmp;
   }

@@ -47,12 +47,7 @@ public:
   leaf<T> *getMax() {
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
-      std::cerr << "We are before this loop now" << std::endl;
-      std::cerr << "this is sentinel value: " << tmp->_sentinel << std::endl;
-      std::cerr << "this is sentinel parent value: " << tmp->parent->value.first
-                << std::endl;
       while (!tmp->parent->_sentinel) {
-        std::cerr << "We are in this loop now" << std::endl;
         tmp = tmp->parent;
       }
     }
@@ -516,7 +511,7 @@ public:
     return S; // new root of subtree
   }
 
-  bool insert(key_value_type val) {
+  bool insert(key_value_type const &val) {
     int side = 0;
     leaf_type *parent;
     leaf_type *grandparent;
@@ -532,9 +527,21 @@ public:
       size = 1;
       return true;
     }
+    leaf_type *ptr = find(val);
+    if (!ptr->_sentinel) {
+      ptr->value.second = val.second;
+      std::cerr << "this is the value of val: " << val.second << std::endl;
+      std::cerr << "this is the value of current: " << ptr->value.second
+                << std::endl;
+      return 0;
+    }
     side = insert_node(val);
-    if (side)
+    if (side) {
       size++;
+      sentinel->parent = root;
+    } else {
+      return 0;
+    }
     dir = side - 1;
     cursor = find(val);
     while (!(parent = cursor->parent)->_sentinel) {
@@ -631,6 +638,12 @@ public:
       return 1;
     } else {
       if (cursor->children[1]->_sentinel) {
+        // std::cerr << "I am here ama" << std::endl;
+        if (cursor->value.first == val.first) {
+          // std::cerr << "I am here ama" << std::endl;
+          cursor->right->value.second = val.second;
+          return 0;
+        }
         // cursor->children[1] = new leaf_type(val, cursor, sentinel);
         cursor->right = _allocator.allocate(sizeof(leaf_type));
         _allocator.construct(cursor->right, leaf_type(val, cursor, sentinel));
