@@ -1,5 +1,6 @@
 #ifndef VECTORITERATOR_HPP
 #define VECTORITERATOR_HPP
+#include "red_black_tree.hpp"
 #include <iostream>
 namespace ft {
 
@@ -70,8 +71,8 @@ public:
   // bool operator==(vectorIterator const &rhs) {
   //   return (_ptr == rhs._ptr);
   // };
-  operator vectorIterator<vector const>() const {
-    return vectorIterator<vector const>(_ptr);
+  operator vectorIterator<const vector>() const {
+    return vectorIterator<const vector>(_ptr);
   }
 
   bool operator!=(vectorIterator const &rhs) { return !(_ptr == rhs._ptr); };
@@ -207,15 +208,15 @@ public:
 
   template <class U>
   reverse_iterator &operator=(const reverse_iterator<U> &other) {
-    current = other.base();
+    this->current = other.base();
     return *this;
   };
 
   reference operator*() const {
-    Iter tmp = current;
+    iterator_type tmp(current);
     return *--tmp;
   };
-  pointer operator->() const { return &(operator*()); };
+  pointer operator->() const { return &(this->operator*()); };
   reference operator[](difference_type n) const { return (base()[-n - 1]); };
 
   reverse_iterator &operator++() {
@@ -257,9 +258,58 @@ public:
   };
 
 protected:
-  iterator_type current;
+  Iter current;
 };
 
+// template< class Iter >
+// class reverse_iterator
+// {
+//   public:
+//     typedef Iter iterator_type;
+//     typedef typename iterator_traits<Iter>::value_type value_type;
+//     typedef typename iterator_traits<Iter>::iterator_category
+//     iterator_category; typedef typename
+//     iterator_traits<Iter>::difference_type difference_type; typedef typename
+//     iterator_traits<Iter>::pointer pointer; typedef typename
+//     iterator_traits<Iter>::reference reference;
+
+//     reverse_iterator(): current(){};
+//     explicit reverse_iterator( iterator_type x ) : current(x) {};
+//     template< class U >
+//     reverse_iterator( const reverse_iterator<U>& other ) :
+//     current(other.base()){}; template< class U > reverse_iterator& operator=(
+//     const reverse_iterator<U>& other ) { this->current = other.base(); return
+//     *this; };
+//     /**
+//      * @brief Returns the underlying base iterator. That is
+//      ft::reverse_iterator(it).base() == it
+//      * @return iterator_type
+//      */
+//     iterator_type base() const { return current; };
+//     reference operator*() const { iterator_type tmp = current; return
+//     *--tmp;}; pointer operator->() const { return &(operator*()); };
+//     reference operator[]( difference_type n ) const { return base()[-n-1]; };
+//     /**
+//      * @brief Increments or decrements the iterator.
+//               Inverse operations are applied to the underlying operator
+//               because of the reverse order.
+//      * @return reverse_iterator&, or reverse_iterator
+//      */
+//     reverse_iterator& operator++() { --current; return *this; };
+//     reverse_iterator& operator--() { ++current; return *this; };
+//     reverse_iterator operator++( int ) { reverse_iterator tmp(base());
+//     current--; return tmp; }; reverse_iterator operator--( int ) {
+//     reverse_iterator tmp(base()); current++; return tmp; }; reverse_iterator
+//     operator+( difference_type n ) const { return reverse_iterator(base() -
+//     n); }; reverse_iterator operator-( difference_type n ) const { return
+//     reverse_iterator(base() + n); }; reverse_iterator& operator+=(
+//     difference_type n ){ current = base() - n; return *this; };
+//     reverse_iterator& operator-=( difference_type n ){ current = base() + n;
+//     return *this; };
+
+//   protected:
+//     iterator_type current;
+// };
 template <class Iterator1, class Iterator2>
 bool operator==(const reverse_iterator<Iterator1> &lhs,
                 const reverse_iterator<Iterator2> &rhs) {
@@ -309,5 +359,169 @@ operator-(const reverse_iterator<Iterator1> &lhs,
           const reverse_iterator<Iterator2> &rhs) {
   return (rhs.base() - lhs.base());
 };
+
+template <class T>
+class mapIterator : public ft::iterator<ft::bidirectional_iterator_tag, T> {
+public:
+  typedef bidirectional_iterator_tag iterator_category;
+  typedef std::ptrdiff_t difference_type;
+  typedef T value_type;
+  typedef T *pointer_type;
+  typedef T &reference;
+  typedef typename ft::leaf<T> node;
+  // typedef typename ft::mapIterator<value_type> iterator;
+
+  mapIterator() : currentNode(){};
+  mapIterator(node *mapNode) : currentNode(mapNode){};
+  mapIterator(mapIterator const &rhs) : currentNode(rhs.currentNode){};
+  mapIterator &operator=(const mapIterator &rhs) {
+    if (this != &rhs) {
+      this->currentNode = rhs.currentNode;
+    }
+    return *this;
+  }
+  ~mapIterator(){};
+  operator mapIterator<const value_type>() const {
+    return mapIterator<const value_type>(currentNode);
+  };
+  reference operator*() const { return currentNode->value; };
+  pointer_type operator->() const { return &currentNode->value; };
+
+  mapIterator &operator++() {
+    if (currentNode->_sentinel) {
+      currentNode = currentNode->getMin();
+    } else {
+      currentNode = currentNode->getSuccessor();
+    }
+    return *this;
+  }
+
+  mapIterator operator++(int) {
+    mapIterator tmp(*this);
+    operator++();
+    return tmp;
+  }
+
+  mapIterator &operator--() {
+    if (currentNode->_sentinel) {
+      // iterator it =
+      currentNode = currentNode->getMax();
+      // std::cerr << currentNode->_sentinel << std::endl;
+      // currentNode = currentNode->parent;
+    } else {
+      currentNode = currentNode->getPredecessor();
+    }
+    return *this;
+  }
+
+  mapIterator operator--(int) {
+    mapIterator tmp(*this);
+    operator--();
+    return tmp;
+  }
+
+  node *currentNode;
+};
+
+template <class T>
+class constMapIterator
+    : public ft::iterator<ft::bidirectional_iterator_tag, T> {
+public:
+  typedef bidirectional_iterator_tag iterator_category;
+  typedef std::ptrdiff_t difference_type;
+  typedef const T value_type;
+  typedef const T *pointer_type;
+  typedef const T &reference;
+  typedef typename ft::leaf<T> node;
+  // typedef typename ft::leaf<const T> const_node;
+  // typedef typename ft::mapIterator<value_type> iterator;
+
+  constMapIterator() : currentNode(){};
+  constMapIterator(node *mapNode) : currentNode(mapNode){};
+  constMapIterator(constMapIterator const &rhs)
+      : currentNode(rhs.currentNode){};
+  constMapIterator(const mapIterator<T> &rhs) : currentNode(rhs.currentNode){};
+
+  constMapIterator &operator=(const mapIterator<T> &rhs) {
+    this->currentNode = rhs.currentNode;
+    return *this;
+  }
+  ~constMapIterator(){};
+
+  reference operator*() const { return currentNode->value; };
+  pointer_type operator->() const { return &currentNode->value; };
+
+  constMapIterator &operator++() {
+    if (currentNode->_sentinel) {
+      currentNode = currentNode->getMin();
+    } else {
+      currentNode = currentNode->getSuccessor();
+      /* rtd::cerr << currentNode->value.first << std::endl; */
+    }
+    return *this;
+  }
+
+  constMapIterator operator++(int) {
+    constMapIterator tmp(*this);
+    operator++();
+    return tmp;
+  }
+
+  constMapIterator &operator--() {
+    if (currentNode->_sentinel) {
+      currentNode = currentNode->getMax();
+    } else {
+      currentNode = currentNode->getPredecessor();
+    }
+    return *this;
+  }
+
+  constMapIterator operator--(int) {
+    constMapIterator tmp(*this);
+    operator--();
+    return tmp;
+  }
+  // reference operator[](difference_type n) const { return base()[-n - 1]; };
+  node *currentNode;
+};
+
+template <typename T1, typename T2>
+bool operator==(const mapIterator<T1> &lhs, const constMapIterator<T2> &rhs) {
+  return lhs.currentNode == rhs.currentNode;
+};
+template <typename T1, typename T2>
+bool operator!=(const mapIterator<T1> &lhs, const constMapIterator<T2> &rhs) {
+  return !operator==(lhs, rhs);
+};
+
+template <typename T1, typename T2>
+bool operator==(const mapIterator<T1> &lhs, const mapIterator<T2> &rhs) {
+  return lhs.currentNode == rhs.currentNode;
+};
+template <typename T1, typename T2>
+bool operator!=(const mapIterator<T1> &lhs, const mapIterator<T2> &rhs) {
+  return !operator==(lhs, rhs);
+};
+
+template <typename T1, typename T2>
+bool operator==(const constMapIterator<T1> &lhs, const mapIterator<T2> &rhs) {
+  return lhs.currentNode == rhs.currentNode;
+};
+template <typename T1, typename T2>
+bool operator!=(const constMapIterator<T1> &lhs, const mapIterator<T2> &rhs) {
+  return !operator==(lhs, rhs);
+};
+
+template <typename T1, typename T2>
+bool operator==(const constMapIterator<T1> &lhs,
+                const constMapIterator<T2> &rhs) {
+  return lhs.currentNode == rhs.currentNode;
+};
+template <typename T1, typename T2>
+bool operator!=(const constMapIterator<T1> &lhs,
+                const constMapIterator<T2> &rhs) {
+  return !operator==(lhs, rhs);
+}
+
 }; // namespace ft
 #endif

@@ -47,9 +47,9 @@ public:
   leaf<T> *getMax() {
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
-      while (!tmp->parent->_sentinel) {
-        tmp = tmp->parent;
-      }
+      // while (!tmp->parent->_sentinel) {
+      tmp = tmp->parent;
+      // }
     }
     while (!tmp->right->_sentinel) {
       tmp = tmp->right;
@@ -59,15 +59,11 @@ public:
 
   leaf<T> *getSuccessor() {
     if (!right->_sentinel) {
-      /* std::cerr << "I am in if" << std::endl; */
       return right->getMin();
     }
     leaf<T> *searchedParent = this->parent;
-    /* std::cerr << "this is parent:" << searchedParent->value.second <<
-     * std::endl; */
     leaf<T> *tmp = this;
     while (!searchedParent->_sentinel && tmp == searchedParent->right) {
-      /* std::cerr << "I am in else" << std::endl; */
       tmp = searchedParent;
       searchedParent = searchedParent->parent;
     }
@@ -94,8 +90,8 @@ public:
       std::cerr << "this is sentinel value: " << tmp->_sentinel << std::endl;
       std::cerr << "this is sentinel parent value: " << tmp->parent->value.first
                 << std::endl;
-      while (!tmp->parent->_sentinel)
-        tmp = tmp->parent;
+      // while (!tmp->parent->_sentinel)
+      tmp = tmp->parent;
     }
     while (!tmp->left->_sentinel) {
       tmp = tmp->left;
@@ -237,6 +233,7 @@ public:
 
   void delete_rb(key_value_type &val) {
     cursor = find(val);
+    std::cerr << "this is size: " << size << std::endl;
     if (cursor->_sentinel)
       return;
     RB_delete(cursor);
@@ -527,14 +524,7 @@ public:
       size = 1;
       return true;
     }
-    leaf_type *ptr = find(val);
-    if (!ptr->_sentinel) {
-      ptr->value.second = val.second;
-      std::cerr << "this is the value of val: " << val.second << std::endl;
-      std::cerr << "this is the value of current: " << ptr->value.second
-                << std::endl;
-      return 0;
-    }
+
     side = insert_node(val);
     if (side) {
       size++;
@@ -590,7 +580,7 @@ public:
     }
   }
 
-  int insert_node(key_value_type val) {
+  int insert_node(key_value_type const &val) {
     if (!size) {
       // root = new leaf_type(val, sentinel, sentinel);
       root = _allocator.allocate(sizeof(leaf_type));
@@ -599,6 +589,14 @@ public:
       return true;
     }
     cursor = root;
+    leaf_type *ptr = find(val);
+    if (!ptr->_sentinel) {
+      // ptr->value.second = val.second;
+      // std::cerr << "this is the value of val: " << val.second << std::endl;
+      // std::cerr << "this is the value of current: " << ptr->value.second
+      //           << std::endl;
+      return 0;
+    }
     return insert_rec(val);
   }
 
@@ -622,7 +620,7 @@ public:
     return node;
   }
 
-  int insert_rec(key_value_type &val) {
+  int insert_rec(key_value_type const &val) {
     // if (value_compare(val, cursor))
     //   return false;
     if (_comparator(val, cursor->value)) {
@@ -674,7 +672,7 @@ public:
   }
 
   leaf_type *get_root() { return root; }
-  leaf_type *get_sentinel() { return sentinel; }
+  leaf_type *get_sentinel() const { return sentinel; }
   size_type getSize() const { return size; }
   size_type getMaxSize() const { return _allocator.max_size(); }
 

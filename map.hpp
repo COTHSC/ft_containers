@@ -1,7 +1,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include "mapIterator.hpp"
+// #include "mapIterator.hpp"
 #include "pair.hpp"
 #include "red_black_tree.hpp"
 #include "vectorIterator.hpp"
@@ -24,6 +24,8 @@ public:
   typedef tree<value_type> tree_type;
   typedef mapIterator<value_type> iterator;
   typedef constMapIterator<value_type> const_iterator;
+  typedef reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef reverse_iterator<iterator> reverse_iterator;
   // typedef typename ft::pair<const key_type, mapped_type> value_type;
 
   explicit map(const key_compare &comp = key_compare(),
@@ -69,10 +71,47 @@ public:
     }
   };
 
+  reverse_iterator rbegin() { return reverse_iterator(end()); };
+
+  const_reverse_iterator rbegin() const {
+    return const_reverse_iterator(end());
+  };
+
+  reverse_iterator rend() { return reverse_iterator(begin()); };
+
+  const_reverse_iterator rend() const {
+    return const_reverse_iterator(begin());
+  };
+
+  iterator find(const key_type &key) {
+    if (_red_black_tree.find(ft::make_pair(key, mapped_type())) !=
+        _red_black_tree.get_sentinel()) {
+      iterator it(_red_black_tree.find(ft::make_pair(key, mapped_type())));
+      return it;
+    }
+    return end();
+  }
+
+  const_iterator find(const key_type &key) const {
+    if (_red_black_tree.find(ft::make_pair(key, mapped_type())) !=
+        _red_black_tree.get_sentinel()) {
+      // std::cerr << "I AM HErE AMA" << std::endl;
+      iterator it(_red_black_tree.find(ft::make_pair(key, mapped_type())));
+      return it;
+    }
+    return end();
+  }
+  size_type count(const key_type &key) const {
+    if (_red_black_tree.find(ft::make_pair(key, mapped_type())) !=
+        _red_black_tree.get_sentinel())
+      return 1;
+    return 0;
+  }
   ft::pair<iterator, bool> insert(const value_type &value) {
     bool result = _red_black_tree.insert(value);
     iterator it = _red_black_tree.find(value);
-    // std::cerr << "I AM HERE AND IT VALUE IS" << std::endl;
+    std::cerr << "I AM HERE AND IT VALUE IS" << (*it).first
+              << " bool is: " << result << std::endl;
     return ft::make_pair(it, result);
   };
 
@@ -86,6 +125,22 @@ public:
   //       _red_black_tree.getLowerBound(ft::make_pair(key, mapped_type())));
   //   return it;
   // }
+
+  void erase(iterator first, iterator last) {
+    key_type next = 0;
+    iterator tmp = first;
+    while (first != last) {
+      ++tmp;
+      next = (*tmp).first;
+      erase(first);
+      if (tmp == end())
+        return;
+      tmp = find(next);
+      first = tmp;
+    }
+  };
+
+  void erase(iterator pos) { _red_black_tree.delete_rb(*pos); }
 
   iterator lower_bound(const key_type &key) {
     iterator it = begin();
@@ -150,13 +205,19 @@ public:
   }
 
   mapped_type &operator[](const key_type &key) {
-    node_type *node = _red_black_tree.find(ft::make_pair(key, mapped_type()));
-    if (!node->_sentinel) {
-      return node->value.second;
-    }
-    insert(ft::make_pair(key, mapped_type()));
-    node = _red_black_tree.find(ft::make_pair(key, mapped_type()));
-    return node->value.second;
+    _red_black_tree.printBT();
+    // std::cerr << "I AM HERE AMA" << std::endl;
+    // ft::pair<iterator, bool> tmp = insert(ft::make_pair(key, mapped_type()));
+    // std::cerr << "this is what is in my return: " << tmp.first->second
+    // << std::endl;
+    return insert(ft::make_pair(key, mapped_type())).first->second;
+    // node_type *node = _red_black_tree.find(ft::make_pair(key,
+    // mapped_type())); if (!node->_sentinel) {
+    //   return node->value.second;
+    // }
+    // insert(ft::make_pair(key, mapped_type()));
+    // node = _red_black_tree.find(ft::make_pair(key, mapped_type()));
+    // return node->value.second;
   }
 
   iterator begin() { return iterator(_red_black_tree.min()); }
