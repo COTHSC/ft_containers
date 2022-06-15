@@ -49,6 +49,7 @@ public:
     if (tmp->_sentinel) {
       // while (!tmp->parent->_sentinel) {
       tmp = tmp->parent;
+      // std::cerr << "this is tmp parent: " << tmp->value.first << std::endl;
       // }
     }
     while (!tmp->right->_sentinel) {
@@ -86,12 +87,8 @@ public:
   leaf<T> *getMin() {
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
-      std::cerr << "We are before this loop now" << std::endl;
-      std::cerr << "this is sentinel value: " << tmp->_sentinel << std::endl;
-      std::cerr << "this is sentinel parent value: " << tmp->parent->value.first
-                << std::endl;
-      // while (!tmp->parent->_sentinel)
       tmp = tmp->parent;
+      // std::cerr << "this is tmp parent: " << tmp->_sentinel << std::endl;
     }
     while (!tmp->left->_sentinel) {
       tmp = tmp->left;
@@ -155,9 +152,7 @@ public:
       sentinel = _allocator.allocate(sizeof(sentinel));
       _allocator.construct(sentinel, 1);
       root = sentinel;
-      // std::cerr << "I AM HERE AMA " << std::endl;
       if (rhs.getSize()) {
-        // std::cerr << "I AM HERE AMA " << std::endl;
         copyLeafs(rhs.root);
       }
     }
@@ -231,12 +226,18 @@ public:
     ng->parent = og->parent;
   }
 
-  void delete_rb(key_value_type &val) {
+  size_type delete_rb(key_value_type val) {
     cursor = find(val);
-    std::cerr << "this is size: " << size << std::endl;
-    if (cursor->_sentinel)
-      return;
+    if (cursor->_sentinel) {
+      // std::cerr << "IM SORRY DAVE, IM AFRAID I CAN'T DELETE THAT: " <<
+      // val.first
+      //           << std::endl;
+      return 0;
+    }
     RB_delete(cursor);
+    sentinel->parent = root;
+    // size--;
+    return 1;
   }
 
   void RBDeleteFixUp(leaf_type *pNode) {
@@ -354,9 +355,11 @@ public:
     leaf_type *x;
     enum color_t y_original_color = y->color;
 
+    // std::cerr << "THIS IS FROM DELETE FUNC" << std::endl;
+    // printBT();
     if (tbdel->left->_sentinel) {
       x = tbdel->right;
-      RB_transplant(tbdel, tbdel->left);
+      RB_transplant(tbdel, tbdel->right);
     } else if (tbdel->right->_sentinel) {
       x = tbdel->left;
       RB_transplant(tbdel, tbdel->left);
@@ -383,6 +386,8 @@ public:
     _allocator.deallocate(tbdel, 1);
     // delete tbdel;
     size--;
+    // std::cerr << "THIS IS FROM end DELETE FUNC" << std::endl;
+    // printBT();
   }
 
   leaf_type *prev(key_value_type val) const {
@@ -514,30 +519,35 @@ public:
     leaf_type *grandparent;
     leaf_type *uncle;
     int dir;
+    // std::cerr << "root is: " << root->value.first << std::endl;
 
     if (!size) {
+      // std::cerr << "I AM HERE: " << std::endl;
       // root = new leaf_type(val, sentinel);
       root = _allocator.allocate(sizeof(leaf<key_value_type>));
       _allocator.construct(root, leaf_type(val, sentinel));
       root->color = BLACK;
       root->parent = sentinel;
+      sentinel->parent = root;
       size = 1;
       return true;
     }
-
     side = insert_node(val);
     if (side) {
+      // std::cerr << "I AM HERE size is: " << size << std::endl;
       size++;
-      sentinel->parent = root;
     } else {
+      sentinel->parent = root;
       return 0;
     }
     dir = side - 1;
     cursor = find(val);
     while (!(parent = cursor->parent)->_sentinel) {
       // IF the parent is black its all good, just return
-      if (cursor->parent->color == BLACK)
+      if (cursor->parent->color == BLACK) {
+        sentinel->parent = root;
         return true;
+      }
       // from now on we know the parent is red
       if ((grandparent = parent->parent)->_sentinel)
         goto Case_parent_is_root_and_red;
@@ -553,6 +563,7 @@ public:
     }
   Case_parent_is_root_and_red: // P is the root and red:
     parent->color = BLACK;
+    sentinel->parent = root;
     return true;
   Case_parent_is_red_uncle_is_black:
     if (cursor == parent->children[1 - dir]) {
@@ -563,6 +574,7 @@ public:
     RotateDirRoot(grandparent, 1 - dir);
     parent->color = BLACK;
     grandparent->color = RED;
+    sentinel->parent = root;
     return true; // insertion complete
     return false;
   };
@@ -592,9 +604,6 @@ public:
     leaf_type *ptr = find(val);
     if (!ptr->_sentinel) {
       // ptr->value.second = val.second;
-      // std::cerr << "this is the value of val: " << val.second << std::endl;
-      // std::cerr << "this is the value of current: " << ptr->value.second
-      //           << std::endl;
       return 0;
     }
     return insert_rec(val);
@@ -636,7 +645,6 @@ public:
       return 1;
     } else {
       if (cursor->children[1]->_sentinel) {
-        // std::cerr << "I am here ama" << std::endl;
         if (cursor->value.first == val.first) {
           // std::cerr << "I am here ama" << std::endl;
           cursor->right->value.second = val.second;
@@ -669,6 +677,18 @@ public:
       printBT(prefix + (isLeft ? "│   " : "    "), node->children[0], true);
       printBT(prefix + (isLeft ? "│   " : "    "), node->children[1], false);
     }
+  }
+
+  template <typename U> void swap(U &a, U &b) {
+    U tmp = a;
+    a = b;
+    b = tmp;
+  };
+
+  void treeSwap(tree &other) {
+    swap(root, other.root);
+    swap(sentinel, other.sentinel);
+    swap(size, other.size);
   }
 
   leaf_type *get_root() { return root; }

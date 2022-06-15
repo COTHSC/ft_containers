@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 // #include "mapIterator.hpp"
+#include "compare.hpp"
 #include "pair.hpp"
 #include "red_black_tree.hpp"
 #include "vectorIterator.hpp"
@@ -33,12 +34,12 @@ public:
       : _red_black_tree(), _allocator(alloc), _comparator(comp){};
 
   template <class InputIT>
-  explicit map(InputIT first, InputIT last) : _red_black_tree() {
+  map(InputIT first, InputIT last) : _red_black_tree() {
     insert(first, last);
     /* _red_black_tree.printBT(); */
   };
 
-  explicit map(const map &og) { *this = og; };
+  map(const map &og) { *this = og; };
   map &operator=(const map &rhs) {
     if (this != &rhs) {
       _allocator = Alloc(rhs._allocator);
@@ -95,7 +96,6 @@ public:
   const_iterator find(const key_type &key) const {
     if (_red_black_tree.find(ft::make_pair(key, mapped_type())) !=
         _red_black_tree.get_sentinel()) {
-      // std::cerr << "I AM HErE AMA" << std::endl;
       iterator it(_red_black_tree.find(ft::make_pair(key, mapped_type())));
       return it;
     }
@@ -110,8 +110,6 @@ public:
   ft::pair<iterator, bool> insert(const value_type &value) {
     bool result = _red_black_tree.insert(value);
     iterator it = _red_black_tree.find(value);
-    std::cerr << "I AM HERE AND IT VALUE IS" << (*it).first
-              << " bool is: " << result << std::endl;
     return ft::make_pair(it, result);
   };
 
@@ -132,15 +130,22 @@ public:
     while (first != last) {
       ++tmp;
       next = (*tmp).first;
+      // std::cerr << "this is tbdel: " << (*first).first << std::endl;
+      // std::cerr << "this is next: " << next << std::endl;
       erase(first);
       if (tmp == end())
-        return;
+        break;
+      // _red_black_tree.printBT();
       tmp = find(next);
       first = tmp;
     }
   };
 
   void erase(iterator pos) { _red_black_tree.delete_rb(*pos); }
+
+  size_type erase(const key_type &key) {
+    return (_red_black_tree.delete_rb(ft::make_pair(key, mapped_type())));
+  }
 
   iterator lower_bound(const key_type &key) {
     iterator it = begin();
@@ -153,6 +158,7 @@ public:
     return it;
   }
 
+  void swap(map &other) { _red_black_tree.treeSwap(other._red_black_tree); }
   bool empty() const { return !_red_black_tree.is_empty(); }
 
   const_iterator lower_bound(const key_type &key) const {
@@ -205,12 +211,17 @@ public:
   }
 
   mapped_type &operator[](const key_type &key) {
-    _red_black_tree.printBT();
-    // std::cerr << "I AM HERE AMA" << std::endl;
+    node_type *ptr = _red_black_tree.find(ft::make_pair(key, mapped_type()));
+    if (!ptr->_sentinel) {
+      return ptr->value.second;
+    }
+    insert(ft::make_pair(key, mapped_type()));
+    // _red_black_tree.printBT();
+    ptr = _red_black_tree.find(ft::make_pair(key, mapped_type()));
+    return ptr->value.second;
+    // _red_black_tree.printBT();
     // ft::pair<iterator, bool> tmp = insert(ft::make_pair(key, mapped_type()));
-    // std::cerr << "this is what is in my return: " << tmp.first->second
-    // << std::endl;
-    return insert(ft::make_pair(key, mapped_type())).first->second;
+    // return insert(ft::make_pair(key, mapped_type())).first->second;
     // node_type *node = _red_black_tree.find(ft::make_pair(key,
     // mapped_type())); if (!node->_sentinel) {
     //   return node->value.second;
@@ -238,6 +249,46 @@ private:
   allocator_type _allocator;
   key_compare _comparator;
 };
+
+template <class key, class T, class compare, class Alloc>
+j bool operator<(const ft::map<key, T, compare, Alloc> &lhs,
+                 const ft::map<key, T, compare, Alloc> &rhs) {
+  return (lex_compare(lhs.begin(), lhs.end(), rhs.begin(), lhs.end()));
+}
+
+template <class key, class T, class compare, class Alloc>
+bool operator<=(const ft::map<key, T, compare, Alloc> &lhs,
+                const ft::map<key, T, compare, Alloc> &rhs) {
+  return !(rhs < lhs);
+}
+
+template <class key, class T, class compare, class Alloc>
+bool operator>(const ft::map<key, T, compare, Alloc> &lhs,
+               const ft::map<key, T, compare, Alloc> &rhs) {
+  return (rhs < lhs);
+}
+
+template <class key, class T, class compare, class Alloc>
+bool operator>=(const ft::map<key, T, compare, Alloc> &lhs,
+                const ft::map<key, T, compare, Alloc> &rhs) {
+  return !(lhs < rhs);
+}
+
+template <class key, class T, class compare, class Alloc>
+bool operator==(const ft::map<key, T, compare, Alloc> &lhs,
+                const ft::map<key, T, compare, Alloc> &rhs) {
+  if ((lhs <= rhs) && (lhs >= rhs))
+    return true;
+  return false;
+  // return !(lhs < rhs);
+}
+
+template <class key, class T, class compare, class Alloc>
+bool operator!=(const ft::map<key, T, compare, Alloc> &lhs,
+                const ft::map<key, T, compare, Alloc> &rhs) {
+  return !(lhs == rhs);
+  // return !(lhs < rhs);
+}
 
 } // namespace ft
 

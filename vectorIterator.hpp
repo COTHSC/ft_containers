@@ -169,11 +169,6 @@ bool operator<(const vectorIterator<iterator1> &lhs,
 template <typename iterator1, typename iterator2>
 bool operator>(const vectorIterator<iterator1> &lhs,
                const vectorIterator<iterator2> &rhs) {
-  // std::cerr << "ptr " << rhs._ptr << " " << lhs._ptr  << std::endl;
-  // std::cerr << "sup " << (lhs._ptr > rhs._ptr)  << std::endl;
-  // std::cerr << "inf " << (lhs._ptr < rhs._ptr)  << std::endl;
-  // std::cerr << "equ " << (lhs._ptr == rhs._ptr)  << std::endl;
-  // std::cerr << "!eq " << (lhs._ptr != rhs._ptr)  << std::endl;
   return (lhs._ptr > rhs._ptr);
 };
 
@@ -404,10 +399,9 @@ public:
 
   mapIterator &operator--() {
     if (currentNode->_sentinel) {
-      // iterator it =
       currentNode = currentNode->getMax();
-      // std::cerr << currentNode->_sentinel << std::endl;
-      // currentNode = currentNode->parent;
+      // std::cerr << "this is the maximum apparently: "
+      //           << currentNode->value.first << std::endl;
     } else {
       currentNode = currentNode->getPredecessor();
     }

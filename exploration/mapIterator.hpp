@@ -33,37 +33,40 @@ public:
   mapiterator &operator++() {
     if (currentnode->_sentinel)
       currentnode = currentnode->getmin();
-    else {
-      currentnode = currentnode->getsuccessor();
-    }
-    return *this;
+    std::cerr << "this is tmp parent: " << currentnode->_sentinel << std::endl;
   }
-
-  mapiterator operator++(int) {
-    mapiterator tmp(*this);
-    operator++();
-    return tmp;
+  else {
+    currentnode = currentnode->getsuccessor();
   }
+  return *this;
+}
 
-  mapiterator &operator--() {
-    if (currentnode->_sentinel) {
-      // iterator it =
-      currentnode = currentnode->getmax();
-      // std::cerr << currentnode->_sentinel << std::endl;
-      // currentnode = currentnode->parent;
-    } else {
-      currentnode = currentnode->getpredecessor();
-    }
-    return *this;
+mapiterator
+operator++(int) {
+  mapiterator tmp(*this);
+  operator++();
+  return tmp;
+}
+
+mapiterator &operator--() {
+  if (currentnode->_sentinel) {
+    // iterator it =
+    currentnode = currentnode->getmax();
+
+    // currentnode = currentnode->parent;
+  } else {
+    currentnode = currentnode->getpredecessor();
   }
+  return *this;
+}
 
-  mapiterator operator--(int) {
-    mapiterator tmp(*this);
-    operator--();
-    return tmp;
-  }
+mapiterator operator--(int) {
+  mapiterator tmp(*this);
+  operator--();
+  return tmp;
+}
 
-  node *currentnode;
+node *currentnode;
 };
 
 template <class t>
@@ -167,6 +170,6 @@ bool operator!=(const constmapiterator<t1> &lhs,
                 const constmapiterator<t2> &rhs) {
   return !operator==(lhs, rhs);
 }
-
-}; // namespace ft
+}
+; // namespace ft
 #endif
