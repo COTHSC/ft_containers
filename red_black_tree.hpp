@@ -11,7 +11,7 @@
 namespace ft {
 
 enum color_t { BLACK, RED };
-template <class T> class leaf {
+template <class T> struct leaf {
 public:
   // TODO this constructor is used to insert new leaves with a value, I really
   // shouldnt need  the default sentinel value here...
@@ -99,10 +99,10 @@ public:
   ~leaf(){};
   leaf *children[2];
   T value;
-  // int key;
+  // long long int key;
   bool _sentinel;
   leaf *parent;
-  enum color_t color;
+  color_t color;
 
 private:
 };
@@ -429,8 +429,7 @@ public:
   leaf_type *find_rec(const key_value_type &val) const {
     if (val.first == cursor->value.first)
       return cursor;
-    if (!_comparator(cursor->value, val)) {
-      // if (cursor->value.first > val.first) {
+    if (!_comparator(cursor->value.first, val.first)) {
       if (cursor->children[0]->_sentinel)
         return sentinel;
       cursor = cursor->left;
@@ -632,7 +631,7 @@ public:
   int insert_rec(key_value_type const &val) {
     // if (value_compare(val, cursor))
     //   return false;
-    if (_comparator(val, cursor->value)) {
+    if (_comparator(val.first, cursor->value.first)) {
       if (cursor->children[0]->_sentinel) {
         // cursor->children[0] = new leaf_type(val, cursor, sentinel);
         cursor->left = _allocator.allocate(sizeof(leaf_type));

@@ -12,6 +12,7 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 template <class Category, class T, class Distance = std::ptrdiff_t,
           class Pointer = T *, class Reference = T &>
+
 struct iterator {
   typedef T value_type;
   typedef Distance difference_type;
@@ -208,8 +209,8 @@ public:
   };
 
   reference operator*() const {
-    iterator_type tmp(current);
-    return *--tmp;
+    iterator_type tmp = current;
+    return (*--tmp);
   };
   pointer operator->() const { return &(this->operator*()); };
   reference operator[](difference_type n) const { return (base()[-n - 1]); };

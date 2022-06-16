@@ -22,7 +22,7 @@ public:
   typedef leaf<value_type> node_type;
   typedef Compare key_compare;
   typedef Alloc allocator_type;
-  typedef tree<value_type> tree_type;
+  typedef tree<value_type, Compare, Alloc> tree_type;
   typedef mapIterator<value_type> iterator;
   typedef constMapIterator<value_type> const_iterator;
   typedef reverse_iterator<const_iterator> const_reverse_iterator;
@@ -211,6 +211,7 @@ public:
   }
 
   mapped_type &operator[](const key_type &key) {
+    // std::cerr << "this is key: " << key << std::endl;
     node_type *ptr = _red_black_tree.find(ft::make_pair(key, mapped_type()));
     if (!ptr->_sentinel) {
       return ptr->value.second;
@@ -251,9 +252,9 @@ private:
 };
 
 template <class key, class T, class compare, class Alloc>
-j bool operator<(const ft::map<key, T, compare, Alloc> &lhs,
-                 const ft::map<key, T, compare, Alloc> &rhs) {
-  return (lex_compare(lhs.begin(), lhs.end(), rhs.begin(), lhs.end()));
+bool operator<(const ft::map<key, T, compare, Alloc> &lhs,
+               const ft::map<key, T, compare, Alloc> &rhs) {
+  return (lex_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 }
 
 template <class key, class T, class compare, class Alloc>
@@ -277,7 +278,7 @@ bool operator>=(const ft::map<key, T, compare, Alloc> &lhs,
 template <class key, class T, class compare, class Alloc>
 bool operator==(const ft::map<key, T, compare, Alloc> &lhs,
                 const ft::map<key, T, compare, Alloc> &rhs) {
-  if ((lhs <= rhs) && (lhs >= rhs))
+  if (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()))
     return true;
   return false;
   // return !(lhs < rhs);
