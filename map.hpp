@@ -23,10 +23,10 @@ public:
   typedef Compare key_compare;
   typedef Alloc allocator_type;
   typedef tree<value_type, Compare, Alloc> tree_type;
-  typedef mapIterator<value_type> iterator;
-  typedef constMapIterator<value_type> const_iterator;
-  typedef reverse_iterator<const_iterator> const_reverse_iterator;
-  typedef reverse_iterator<iterator> reverse_iterator;
+  typedef ft::mapIterator<value_type> iterator;
+  typedef ft::constMapIterator<value_type> const_iterator;
+  typedef ft::reverse_iterator<iterator> reverse_iterator;
+  typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
   // typedef typename ft::pair<const key_type, mapped_type> value_type;
 
   explicit map(const key_compare &comp = key_compare(),
