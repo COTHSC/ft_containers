@@ -18,7 +18,7 @@ template <typename T> struct enable_if<true, T> { typedef T type; };
 
 namespace ft {
 
-template <class T, class Allocator = std::allocator<T> > class vector {
+template <class T, class Allocator = std::allocator<T>> class vector {
 public:
   typedef T value_type;
   typedef value_type &reference;
@@ -57,11 +57,13 @@ public:
 
   vector(const vector &rhs)
       : _size(rhs.size()), _capacity(rhs.capacity()),
-        _allocator(rhs.get_allocator()),
-        _array(_allocator.allocate(_capacity)) {
+        _allocator(rhs.get_allocator()) {
+    if (_capacity)
+      _array = _allocator.allocate(_capacity);
     for (size_type i = 0; i < _size; ++i) {
       _allocator.construct(_array + i, rhs[i]);
     }
+    // std::cerr << "this is capacity: " << _capacity << std::endl;
   };
 
   vector &operator=(const vector &rhs) {
@@ -71,8 +73,10 @@ public:
     return *this;
   }
   ~vector() {
-    if (_size)
+    if (_capacity) {
+      clear();
       _allocator.deallocate(_array, _capacity);
+    }
   };
 
   void clear() {
@@ -130,7 +134,7 @@ public:
     if (_size >= _capacity) {
       value_type *tmp;
       if (!_capacity) {
-        _capacity = 2;
+        _capacity = 1;
         _array = _allocator.allocate(_capacity);
         _allocator.construct(_array + _size, val);
         ++_size;
@@ -141,8 +145,9 @@ public:
       for (size_type i = 0; i < _size; ++i) {
         _allocator.construct(tmp + i, _array[i]);
       }
-      if (_capacity)
-        _allocator.deallocate(_array, _capacity);
+      // if (_capacity) {
+      _allocator.deallocate(_array, _capacity / 2);
+      // }
       _array = tmp;
     }
     _allocator.construct(_array + _size, val);
@@ -191,7 +196,7 @@ public:
 
   void pop_back() {
     if (_size > 0)
-      _allocator.destroy(_array + --_size);
+      _allocator.destroy(_array + (--_size));
   };
 
   friend std::ostream &operator<<(std::ostream &ostr, const vector &rhs) {
