@@ -48,12 +48,12 @@ bool equal(input_it1 first1, input_it1 last1, input_it2 first2) {
     }
     return true;
   }
-  return false;
+  return true;
 }
 
 template <class input_it1, class input_it2, class compare, class comp>
 bool equal(input_it1 first1, input_it1 last1, input_it2 first2, comp pred) {
-	(void)pred;
+  (void)pred;
   while (first1 != last1) {
     if (*first1 != *first2) {
       return false;
