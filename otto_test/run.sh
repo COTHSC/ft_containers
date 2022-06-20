@@ -28,6 +28,8 @@ SRC_TESTS_FOLDER="tests/${TESTED_CONTAINER}_testing"
 DIFF_FOLDER="diff/"
 DIFF_FILE="diff_${TESTED_CONTAINER}"
 TESTED_FILES_FOLDER="under_test/"
+# COMPILATION_FLAGS="-g"
+#COMPILATION_FLAGS="-Wall -Wextra -Werror -g3"
 COMPILATION_FLAGS="-Wall -Wextra -Werror -g3 -fsanitize=address -std=c++98"
 COUNT_PASSED_TESTS=0;
 COUNT_FAILED_COMPILATION=0
@@ -40,7 +42,7 @@ rm -f ${COMPILATION_ERROR_FILE} ${EXECUTION_ERROR_FILE}
 
 #Verify Argument passed
 if [[ ${TESTED_CONTAINER} != "vector" ]] && [[ ${TESTED_CONTAINER} != "map" ]] && [[ ${TESTED_CONTAINER} != "stack" ]]
-then    
+then
     echo -e "ERROR: unkown argument"
     echo -e "USAGE: ./run.sh [stack|vector|map]"
     exit 1

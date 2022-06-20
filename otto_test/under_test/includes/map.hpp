@@ -5,7 +5,7 @@
 #include "compare.hpp"
 #include "pair.hpp"
 #include "red_black_tree.hpp"
-#include "vectorIterator.hpp"
+#include "iterator.hpp"
 #include <functional>
 #include <iostream>
 
@@ -115,6 +115,7 @@ public:
 
   iterator insert(iterator hint, const value_type &val) {
     _red_black_tree.insert(val);
+    (void)hint;
     return _red_black_tree.find(val);
     // return begin();
   };
@@ -130,10 +131,8 @@ public:
     while (first != last) {
       ++tmp;
       next = (*tmp).first;
-      // std::cerr << "this is tbdel: " << (*first).first << std::endl;
-      // std::cerr << "this is next: " << next << std::endl;
       erase(first);
-      if (tmp == end())
+      if (tmp == end() || tmp.currentNode->_sentinel)
         break;
       // _red_black_tree.printBT();
       tmp = find(next);
@@ -234,9 +233,13 @@ public:
 
   iterator begin() { return iterator(_red_black_tree.min()); }
   const_iterator begin() const { return const_iterator(_red_black_tree.min()); }
-  iterator end() { return iterator(_red_black_tree.max()->right); }
+  //iterator end() { return iterator(_red_black_tree.max()->right); }
+  iterator end() { return iterator(_red_black_tree.get_sentinel()); }
+//const_iterator end() const {
+//  return const_iterator(_red_black_tree.max()->right);
+//}
   const_iterator end() const {
-    return const_iterator(_red_black_tree.max()->right);
+    return const_iterator(_red_black_tree.get_sentinel());
   }
 
   tree_type _red_black_tree;

@@ -1,0 +1,60 @@
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+Key: a Value: 97
+Key: c Value: 99
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+it == ?0
+it != ?1
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+Key: a Value: 97
+Key: c Value: 99
+Key: a Value: 97
+Key: b Value: 98
+Key: a Value: 97
+it == ?0
+it != ?1
+POST FIX ++ it
+Key: a - Value: 97
+Key: b - Value: 98
+Key: c - Value: 99
+Key: d - Value: 100
+PRE FIX ++ it
+Key: a - Value: 97
+Key: b - Value: 98
+Key: c - Value: 99
+Key: d - Value: 100
+POST FIX -- it
+Key: d - Value: 100
+Key: c - Value: 99
+Key: b - Value: 98
+Key: a - Value: 97
+PRE FIX -- it
+Key: d - Value: 100
+Key: c - Value: 99
+Key: b - Value: 98
+Key: a - Value: 97
+Key: d - Value: 100
+Key: c - Value: 99
+Key: b - Value: 98
+Key: a - Value: 97
+Key: d - Value: 100
+Key: c - Value: 99
+Key: b - Value: 98
+Key: a - Value: 97
+Key: a - Value: 97
+Key: b - Value: 98
+Key: c - Value: 99
+Key: d - Value: 100
+Key: a - Value: 97
+Key: b - Value: 98
+Key: c - Value: 99
+Key: d - Value: 100

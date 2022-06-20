@@ -41,16 +41,15 @@ public:
   leaf(leaf *sentinel) {
     children[1] = sentinel;
     children[0] = sentinel;
-    parent = this;
+    parent = sentinel;
   };
 
   leaf<T> *getMax() {
     leaf<T> *tmp = this;
-    if (tmp->_sentinel) {
-      // while (!tmp->parent->_sentinel) {
+    if (_sentinel) {
       tmp = tmp->parent;
-      // std::cerr << "this is tmp parent: " << tmp->value.first << std::endl;
-      // }
+      if (tmp->_sentinel)
+	      return tmp;
     }
     while (!tmp->right->_sentinel) {
       tmp = tmp->right;
@@ -88,7 +87,6 @@ public:
     leaf<T> *tmp = this;
     if (tmp->_sentinel) {
       tmp = tmp->parent;
-      // std::cerr << "this is tmp parent: " << tmp->_sentinel << std::endl;
     }
     while (!tmp->left->_sentinel) {
       tmp = tmp->left;
@@ -127,23 +125,21 @@ class tree {
 public:
   tree(const value_compare &comp = value_compare(),
        const allocator_type &alloc = leaf_allocator_type())
-      : _comparator(comp), _allocator(alloc) {
-    // sentinel = new leaf_type(1);
+      : size(0), _comparator(comp), _allocator(alloc) {
     sentinel = _allocator.allocate(sizeof(sentinel));
     _allocator.construct(sentinel, 1);
-
-    // sentinel = _allocator(leaf_type(1));
     sentinel->parent = sentinel;
     root = sentinel;
-
     cursor = root;
-    size = 0;
+    // size = 0;
   };
 
   tree &operator=(const tree &rhs) {
     if (this != &rhs) {
       if (size || !rhs.is_empty()) {
         clearTree();
+
+        // size = 0;
       }
       _allocator.destroy(sentinel);
       _allocator.deallocate(sentinel, 1);
@@ -178,6 +174,9 @@ public:
   void clearTree() {
     deallocate(root);
     root = sentinel;
+    sentinel->parent = sentinel;
+    sentinel->left = sentinel;
+    sentinel->right = sentinel;
     size = 0;
   }
 
@@ -229,14 +228,10 @@ public:
   size_type delete_rb(key_value_type val) {
     cursor = find(val);
     if (cursor->_sentinel) {
-      // std::cerr << "IM SORRY DAVE, IM AFRAID I CAN'T DELETE THAT: " <<
-      // val.first
-      //           << std::endl;
       return 0;
     }
     RB_delete(cursor);
     sentinel->parent = root;
-    // size--;
     return 1;
   }
 
@@ -384,10 +379,7 @@ public:
     }
     _allocator.destroy(tbdel);
     _allocator.deallocate(tbdel, 1);
-    // delete tbdel;
     size--;
-    // std::cerr << "THIS IS FROM end DELETE FUNC" << std::endl;
-    // printBT();
   }
 
   leaf_type *prev(key_value_type val) const {
@@ -701,7 +693,7 @@ public:
 protected:
   leaf_type *sentinel;
   mutable leaf_type *cursor;
-  static size_t size = 0;
+  size_t size;
   Compare _comparator;
   leaf_allocator_type _allocator;
 };
