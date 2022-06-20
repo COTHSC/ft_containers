@@ -1,0 +1,52 @@
+In file included from ./under_test/stack_testing/../includes/vectorIterator.hpp:3,
+                 from ./under_test/stack_testing/../includes/vector.hpp:4,
+                 from ./under_test/stack_testing/../includes/stack.hpp:4,
+                 from ./under_test/stack_testing/capacity.cpp:5:
+./under_test/stack_testing/../includes/red_black_tree.hpp:704:17: error: ISO C++ forbids in-class initialization of non-const static member ‘ft::tree<T, Compare, Alloc>::size’
+  704 |   static size_t size = 0;
+      |                 ^~~~
+./under_test/stack_testing/../includes/vector.hpp:35:38: error: declaration of ‘typedef class ft::reverse_iterator<ft::vectorIterator<T> > ft::vector<T, Allocator>::reverse_iterator’ changes meaning of ‘reverse_iterator’ [-fpermissive]
+   35 |   typedef reverse_iterator<iterator> reverse_iterator;
+      |                                      ^~~~~~~~~~~~~~~~
+./under_test/stack_testing/../includes/vectorIterator.hpp:260:29: note: ‘reverse_iterator’ declared here as ‘class ft::reverse_iterator<ft::vectorIterator<T> >’
+  260 | template <class Iter> class reverse_iterator {
+      |                             ^~~~~~~~~~~~~~~~
+In file included from ./under_test/stack_testing/../includes/vectorIterator.hpp:3,
+                 from ./under_test/stack_testing/../includes/vector.hpp:4,
+                 from ./under_test/stack_testing/../includes/stack.hpp:4,
+                 from ./under_test/stack_testing/construct.cpp:5:
+./under_test/stack_testing/../includes/red_black_tree.hpp:704:17: error: ISO C++ forbids in-class initialization of non-const static member ‘ft::tree<T, Compare, Alloc>::size’
+  704 |   static size_t size = 0;
+      |                 ^~~~
+./under_test/stack_testing/../includes/vector.hpp:35:38: error: declaration of ‘typedef class ft::reverse_iterator<ft::vectorIterator<T> > ft::vector<T, Allocator>::reverse_iterator’ changes meaning of ‘reverse_iterator’ [-fpermissive]
+   35 |   typedef reverse_iterator<iterator> reverse_iterator;
+      |                                      ^~~~~~~~~~~~~~~~
+./under_test/stack_testing/../includes/vectorIterator.hpp:260:29: note: ‘reverse_iterator’ declared here as ‘class ft::reverse_iterator<ft::vectorIterator<T> >’
+  260 | template <class Iter> class reverse_iterator {
+      |                             ^~~~~~~~~~~~~~~~
+In file included from ./under_test/stack_testing/../includes/vectorIterator.hpp:3,
+                 from ./under_test/stack_testing/../includes/vector.hpp:4,
+                 from ./under_test/stack_testing/../includes/stack.hpp:4,
+                 from ./under_test/stack_testing/non_member.cpp:5:
+./under_test/stack_testing/../includes/red_black_tree.hpp:704:17: error: ISO C++ forbids in-class initialization of non-const static member ‘ft::tree<T, Compare, Alloc>::size’
+  704 |   static size_t size = 0;
+      |                 ^~~~
+./under_test/stack_testing/../includes/vector.hpp:35:38: error: declaration of ‘typedef class ft::reverse_iterator<ft::vectorIterator<T> > ft::vector<T, Allocator>::reverse_iterator’ changes meaning of ‘reverse_iterator’ [-fpermissive]
+   35 |   typedef reverse_iterator<iterator> reverse_iterator;
+      |                                      ^~~~~~~~~~~~~~~~
+./under_test/stack_testing/../includes/vectorIterator.hpp:260:29: note: ‘reverse_iterator’ declared here as ‘class ft::reverse_iterator<ft::vectorIterator<T> >’
+  260 | template <class Iter> class reverse_iterator {
+      |                             ^~~~~~~~~~~~~~~~
+In file included from ./under_test/stack_testing/../includes/vectorIterator.hpp:3,
+                 from ./under_test/stack_testing/../includes/vector.hpp:4,
+                 from ./under_test/stack_testing/../includes/stack.hpp:4,
+                 from ./under_test/stack_testing/push_pop_top.cpp:5:
+./under_test/stack_testing/../includes/red_black_tree.hpp:704:17: error: ISO C++ forbids in-class initialization of non-const static member ‘ft::tree<T, Compare, Alloc>::size’
+  704 |   static size_t size = 0;
+      |                 ^~~~
+./under_test/stack_testing/../includes/vector.hpp:35:38: error: declaration of ‘typedef class ft::reverse_iterator<ft::vectorIterator<T> > ft::vector<T, Allocator>::reverse_iterator’ changes meaning of ‘reverse_iterator’ [-fpermissive]
+   35 |   typedef reverse_iterator<iterator> reverse_iterator;
+      |                                      ^~~~~~~~~~~~~~~~
+./under_test/stack_testing/../includes/vectorIterator.hpp:260:29: note: ‘reverse_iterator’ declared here as ‘class ft::reverse_iterator<ft::vectorIterator<T> >’
+  260 | template <class Iter> class reverse_iterator {
+      |                             ^~~~~~~~~~~~~~~~
