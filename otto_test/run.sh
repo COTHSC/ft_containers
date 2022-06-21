@@ -91,13 +91,10 @@ for test in ./${TESTED_FILES_FOLDER}${TESTED_CONTAINER}_testing/*.cpp; do
         echo -e "EXECUTION: ${RED}ERROR${RESET}"
         continue
     fi
-    # STL_START=$(date +.%N)
     if [[ $2 ]] && [[ $2 == "time" ]]
     then
         echo -ne "\nSTL TIMES: "
         time ./${STL_BIN} > "${STL_OUTPUT_FOLDER}${STL_OUTPUT}_${test_name}.log" 2> /dev/null
-        # STL_END=$(date +.%N)
-        # YOURS_START=$(date +.%N)
         echo -e "------------------"
         echo -ne "YOUR TIMES: "
         time ./${YOUR_BIN} > "${YOUR_OUTPUT_FOLDER}${YOUR_OUTPUT}_${test_name}.log" 2>> ${EXECUTION_ERROR_FILE}
@@ -112,7 +109,6 @@ for test in ./${TESTED_FILES_FOLDER}${TESTED_CONTAINER}_testing/*.cpp; do
         ./${YOUR_BIN} > "${YOUR_OUTPUT_FOLDER}${YOUR_OUTPUT}_${test_name}.log" 2>> ${EXECUTION_ERROR_FILE}
         EXEC_RET=$?
     fi
-    # YOURS_END=$(date +.%N)
     if [ ${EXEC_RET} -ne 0 ]
     then
         echo -e "EXECUTION: ${RED}ERROR${RESET}"
@@ -123,10 +119,6 @@ for test in ./${TESTED_FILES_FOLDER}${TESTED_CONTAINER}_testing/*.cpp; do
             echo -e "EXECUTION: ${RED}FAILED${RESET}"
         else
             echo -e "EXECUTION: ${GREEN}SUCCESS${RESET}"
-            # STL_DIFF=$(echo "$STL_END - $STL_START" | bc -l)
-            # YOURS_DIFF=$(echo "$YOURS_END - $YOURS_START" | bc -l)
-            # EXEC_TIME_MULTIPLE=$(echo "$STL_DIFF/$YOURS_DIFF" | bc -l)
-            # echo -e ""STL EXEC TIME / YOUR EXEC TIME": ${EXEC_TIME_MULTIPLE}"
             COUNT_PASSED_TESTS=$((COUNT_PASSED_TESTS + 1))
             rm -f ${DIFF_FOLDER}${DIFF_FILE}_${test_name}
         fi
@@ -134,26 +126,4 @@ for test in ./${TESTED_FILES_FOLDER}${TESTED_CONTAINER}_testing/*.cpp; do
     rm -f ${STL_BIN} ${YOUR_BIN}
 done
 
-# if [ $? != 0 ]
-# thel
-#l    echo -e "${RED} >> COMPILATION ERROR FROM ORIGINAL LIB${RESET}"
-#     exit 1
-# fi
-# if [ $? != 0 ]
-# then
-#     echo -e "${RED} >> COMPILATION ERROR FROM ORIGINAL LIB${RESET}"
-#     exit 1
-# fi
-#echo -e "${YELLOW}STDERROR OUTPUT...${RESET}"
-#echo -e "${YELLOW}STL STDERROR: ${RESET}"
-# start_stl=`date +%s%N`
-# ./stl_vector > stl_${TESTED_CONTAINER}_output.log
-# end_stl= `date +%s%N`
-# #echo -e "${YELLOW}YOUR STDERROR: ${RESET}"
-# start_yours=`date +%s%N`
-# ./your_vector > your_${TESTED_CONTAINER}_output.log
-# end_yours=`date +%s%N`
-# echo -e STL: Execution time was `expr $end_stl - $start_stl` nanoseconds
-# echo -e Yours: Execution time was `expr $end_yours - $start_yours` nanoseconds
 print_score ${COUNT_PASSED_TESTS} ${COUNT_TOTAL_TESTS}
-# rm -rf ${TESTED_FILES_FOLDER}
