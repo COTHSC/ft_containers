@@ -1,0 +1,1270 @@
+Testing multiple push_back calls
+Element at pos 0 ? : 1
+Size : 1 -- Capacity : 1
+Element at pos 1 ? : 2
+Size : 2 -- Capacity : 2
+Element at pos 2 ? : 3
+Size : 3 -- Capacity : 4
+Element at pos 3 ? : 4
+Size : 4 -- Capacity : 4
+Element at pos 4 ? : 5
+Size : 5 -- Capacity : 8
+Testing multiple pop_back calls
+Element at pos 3 ? : 4
+Size : 4 -- Capacity : 8
+Element at pos 2 ? : 3
+Size : 3 -- Capacity : 8
+Element at pos 1 ? : 2
+Size : 2 -- Capacity : 8
+Element at pos 0 ? : 1
+Size : 1 -- Capacity : 8
+Testing pop_back on empty vector
+Testing out_of_range at() call
+Vector is empty ? : 1
+Vector size ? : 0
+Done
+Testing copy ctor an empty vector
+Done
+Testing copy ctor with one el vector
+Size : 2 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Deep copy? : 
+Size : 1 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Testing copy ctor with one el vector
+Size : 2 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Deep copy? : 
+Size : 1 -- Capacity : 2
+Element at pos 0 ? : 42
+Size : 2 -- Capacity : 2
+Testing copy ctor with one el vector
+Size : 0 -- Capacity : 0
+Size : 0 -- Capacity : 0
+Size : 0 -- Capacity : 0
+Testing multiple push_back calls
+Element at pos 0 ? : hello
+Size : 1 -- Capacity : 1
+Element at pos 1 ? : hello
+Size : 2 -- Capacity : 2
+Element at pos 2 ? : hello
+Size : 3 -- Capacity : 4
+Element at pos 3 ? : hello
+Size : 4 -- Capacity : 4
+Element at pos 4 ? : hello
+Size : 5 -- Capacity : 8
+Element at pos 5 ? : hello
+Size : 6 -- Capacity : 8
+Element at pos 6 ? : hello
+Size : 7 -- Capacity : 8
+Element at pos 7 ? : hello
+Size : 8 -- Capacity : 8
+Element at pos 8 ? : hello
+Size : 9 -- Capacity : 16
+Element at pos 9 ? : hello
+Size : 10 -- Capacity : 16
+Element at pos 10 ? : hello
+Size : 11 -- Capacity : 16
+Element at pos 11 ? : hello
+Size : 12 -- Capacity : 16
+Element at pos 12 ? : hello
+Size : 13 -- Capacity : 16
+Element at pos 13 ? : hello
+Size : 14 -- Capacity : 16
+Element at pos 14 ? : hello
+Size : 15 -- Capacity : 16
+Element at pos 15 ? : hello
+Size : 16 -- Capacity : 16
+Element at pos 16 ? : hello
+Size : 17 -- Capacity : 32
+Element at pos 17 ? : hello
+Size : 18 -- Capacity : 32
+Element at pos 18 ? : hello
+Size : 19 -- Capacity : 32
+Element at pos 19 ? : hello
+Size : 20 -- Capacity : 32
+Element at pos 20 ? : hello
+Size : 21 -- Capacity : 32
+Element at pos 21 ? : hello
+Size : 22 -- Capacity : 32
+Element at pos 22 ? : hello
+Size : 23 -- Capacity : 32
+Element at pos 23 ? : hello
+Size : 24 -- Capacity : 32
+Element at pos 24 ? : hello
+Size : 25 -- Capacity : 32
+Element at pos 25 ? : hello
+Size : 26 -- Capacity : 32
+Element at pos 26 ? : hello
+Size : 27 -- Capacity : 32
+Element at pos 27 ? : hello
+Size : 28 -- Capacity : 32
+Element at pos 28 ? : hello
+Size : 29 -- Capacity : 32
+Element at pos 29 ? : hello
+Size : 30 -- Capacity : 32
+Element at pos 30 ? : hello
+Size : 31 -- Capacity : 32
+Element at pos 31 ? : hello
+Size : 32 -- Capacity : 32
+Element at pos 32 ? : hello
+Size : 33 -- Capacity : 64
+Element at pos 33 ? : hello
+Size : 34 -- Capacity : 64
+Element at pos 34 ? : hello
+Size : 35 -- Capacity : 64
+Element at pos 35 ? : hello
+Size : 36 -- Capacity : 64
+Element at pos 36 ? : hello
+Size : 37 -- Capacity : 64
+Element at pos 37 ? : hello
+Size : 38 -- Capacity : 64
+Element at pos 38 ? : hello
+Size : 39 -- Capacity : 64
+Element at pos 39 ? : hello
+Size : 40 -- Capacity : 64
+Element at pos 40 ? : hello
+Size : 41 -- Capacity : 64
+Element at pos 41 ? : hello
+Size : 42 -- Capacity : 64
+Element at pos 42 ? : hello
+Size : 43 -- Capacity : 64
+Element at pos 43 ? : hello
+Size : 44 -- Capacity : 64
+Element at pos 44 ? : hello
+Size : 45 -- Capacity : 64
+Element at pos 45 ? : hello
+Size : 46 -- Capacity : 64
+Element at pos 46 ? : hello
+Size : 47 -- Capacity : 64
+Element at pos 47 ? : hello
+Size : 48 -- Capacity : 64
+Element at pos 48 ? : hello
+Size : 49 -- Capacity : 64
+Element at pos 49 ? : hello
+Size : 50 -- Capacity : 64
+Element at pos 50 ? : hello
+Size : 51 -- Capacity : 64
+Element at pos 51 ? : hello
+Size : 52 -- Capacity : 64
+Element at pos 52 ? : hello
+Size : 53 -- Capacity : 64
+Element at pos 53 ? : hello
+Size : 54 -- Capacity : 64
+Element at pos 54 ? : hello
+Size : 55 -- Capacity : 64
+Element at pos 55 ? : hello
+Size : 56 -- Capacity : 64
+Element at pos 56 ? : hello
+Size : 57 -- Capacity : 64
+Element at pos 57 ? : hello
+Size : 58 -- Capacity : 64
+Element at pos 58 ? : hello
+Size : 59 -- Capacity : 64
+Element at pos 59 ? : hello
+Size : 60 -- Capacity : 64
+Element at pos 60 ? : hello
+Size : 61 -- Capacity : 64
+Element at pos 61 ? : hello
+Size : 62 -- Capacity : 64
+Element at pos 62 ? : hello
+Size : 63 -- Capacity : 64
+Element at pos 63 ? : hello
+Size : 64 -- Capacity : 64
+Element at pos 64 ? : hello
+Size : 65 -- Capacity : 128
+Element at pos 65 ? : hello
+Size : 66 -- Capacity : 128
+Element at pos 66 ? : hello
+Size : 67 -- Capacity : 128
+Element at pos 67 ? : hello
+Size : 68 -- Capacity : 128
+Element at pos 68 ? : hello
+Size : 69 -- Capacity : 128
+Element at pos 69 ? : hello
+Size : 70 -- Capacity : 128
+Element at pos 70 ? : hello
+Size : 71 -- Capacity : 128
+Element at pos 71 ? : hello
+Size : 72 -- Capacity : 128
+Element at pos 72 ? : hello
+Size : 73 -- Capacity : 128
+Element at pos 73 ? : hello
+Size : 74 -- Capacity : 128
+Element at pos 74 ? : hello
+Size : 75 -- Capacity : 128
+Element at pos 75 ? : hello
+Size : 76 -- Capacity : 128
+Element at pos 76 ? : hello
+Size : 77 -- Capacity : 128
+Element at pos 77 ? : hello
+Size : 78 -- Capacity : 128
+Element at pos 78 ? : hello
+Size : 79 -- Capacity : 128
+Element at pos 79 ? : hello
+Size : 80 -- Capacity : 128
+Element at pos 80 ? : hello
+Size : 81 -- Capacity : 128
+Element at pos 81 ? : hello
+Size : 82 -- Capacity : 128
+Element at pos 82 ? : hello
+Size : 83 -- Capacity : 128
+Element at pos 83 ? : hello
+Size : 84 -- Capacity : 128
+Element at pos 84 ? : hello
+Size : 85 -- Capacity : 128
+Element at pos 85 ? : hello
+Size : 86 -- Capacity : 128
+Element at pos 86 ? : hello
+Size : 87 -- Capacity : 128
+Element at pos 87 ? : hello
+Size : 88 -- Capacity : 128
+Element at pos 88 ? : hello
+Size : 89 -- Capacity : 128
+Element at pos 89 ? : hello
+Size : 90 -- Capacity : 128
+Element at pos 90 ? : hello
+Size : 91 -- Capacity : 128
+Element at pos 91 ? : hello
+Size : 92 -- Capacity : 128
+Element at pos 92 ? : hello
+Size : 93 -- Capacity : 128
+Element at pos 93 ? : hello
+Size : 94 -- Capacity : 128
+Element at pos 94 ? : hello
+Size : 95 -- Capacity : 128
+Element at pos 95 ? : hello
+Size : 96 -- Capacity : 128
+Element at pos 96 ? : hello
+Size : 97 -- Capacity : 128
+Element at pos 97 ? : hello
+Size : 98 -- Capacity : 128
+Element at pos 98 ? : hello
+Size : 99 -- Capacity : 128
+Element at pos 99 ? : hello
+Size : 100 -- Capacity : 128
+Testing multiple pop_back calls
+Element at pos 98 ? : hello
+Size : 99 -- Capacity : 128
+Element at pos 97 ? : hello
+Size : 98 -- Capacity : 128
+Element at pos 96 ? : hello
+Size : 97 -- Capacity : 128
+Element at pos 95 ? : hello
+Size : 96 -- Capacity : 128
+Element at pos 94 ? : hello
+Size : 95 -- Capacity : 128
+Element at pos 93 ? : hello
+Size : 94 -- Capacity : 128
+Element at pos 92 ? : hello
+Size : 93 -- Capacity : 128
+Element at pos 91 ? : hello
+Size : 92 -- Capacity : 128
+Element at pos 90 ? : hello
+Size : 91 -- Capacity : 128
+Element at pos 89 ? : hello
+Size : 90 -- Capacity : 128
+Element at pos 88 ? : hello
+Size : 89 -- Capacity : 128
+Element at pos 87 ? : hello
+Size : 88 -- Capacity : 128
+Element at pos 86 ? : hello
+Size : 87 -- Capacity : 128
+Element at pos 85 ? : hello
+Size : 86 -- Capacity : 128
+Element at pos 84 ? : hello
+Size : 85 -- Capacity : 128
+Element at pos 83 ? : hello
+Size : 84 -- Capacity : 128
+Element at pos 82 ? : hello
+Size : 83 -- Capacity : 128
+Element at pos 81 ? : hello
+Size : 82 -- Capacity : 128
+Element at pos 80 ? : hello
+Size : 81 -- Capacity : 128
+Element at pos 79 ? : hello
+Size : 80 -- Capacity : 128
+Element at pos 78 ? : hello
+Size : 79 -- Capacity : 128
+Element at pos 77 ? : hello
+Size : 78 -- Capacity : 128
+Element at pos 76 ? : hello
+Size : 77 -- Capacity : 128
+Element at pos 75 ? : hello
+Size : 76 -- Capacity : 128
+Element at pos 74 ? : hello
+Size : 75 -- Capacity : 128
+Element at pos 73 ? : hello
+Size : 74 -- Capacity : 128
+Element at pos 72 ? : hello
+Size : 73 -- Capacity : 128
+Element at pos 71 ? : hello
+Size : 72 -- Capacity : 128
+Element at pos 70 ? : hello
+Size : 71 -- Capacity : 128
+Element at pos 69 ? : hello
+Size : 70 -- Capacity : 128
+Element at pos 68 ? : hello
+Size : 69 -- Capacity : 128
+Element at pos 67 ? : hello
+Size : 68 -- Capacity : 128
+Element at pos 66 ? : hello
+Size : 67 -- Capacity : 128
+Element at pos 65 ? : hello
+Size : 66 -- Capacity : 128
+Element at pos 64 ? : hello
+Size : 65 -- Capacity : 128
+Element at pos 63 ? : hello
+Size : 64 -- Capacity : 128
+Element at pos 62 ? : hello
+Size : 63 -- Capacity : 128
+Element at pos 61 ? : hello
+Size : 62 -- Capacity : 128
+Element at pos 60 ? : hello
+Size : 61 -- Capacity : 128
+Element at pos 59 ? : hello
+Size : 60 -- Capacity : 128
+Element at pos 58 ? : hello
+Size : 59 -- Capacity : 128
+Element at pos 57 ? : hello
+Size : 58 -- Capacity : 128
+Element at pos 56 ? : hello
+Size : 57 -- Capacity : 128
+Element at pos 55 ? : hello
+Size : 56 -- Capacity : 128
+Element at pos 54 ? : hello
+Size : 55 -- Capacity : 128
+Element at pos 53 ? : hello
+Size : 54 -- Capacity : 128
+Element at pos 52 ? : hello
+Size : 53 -- Capacity : 128
+Element at pos 51 ? : hello
+Size : 52 -- Capacity : 128
+Element at pos 50 ? : hello
+Size : 51 -- Capacity : 128
+Element at pos 49 ? : hello
+Size : 50 -- Capacity : 128
+Element at pos 48 ? : hello
+Size : 49 -- Capacity : 128
+Element at pos 47 ? : hello
+Size : 48 -- Capacity : 128
+Element at pos 46 ? : hello
+Size : 47 -- Capacity : 128
+Element at pos 45 ? : hello
+Size : 46 -- Capacity : 128
+Element at pos 44 ? : hello
+Size : 45 -- Capacity : 128
+Element at pos 43 ? : hello
+Size : 44 -- Capacity : 128
+Element at pos 42 ? : hello
+Size : 43 -- Capacity : 128
+Element at pos 41 ? : hello
+Size : 42 -- Capacity : 128
+Element at pos 40 ? : hello
+Size : 41 -- Capacity : 128
+Element at pos 39 ? : hello
+Size : 40 -- Capacity : 128
+Element at pos 38 ? : hello
+Size : 39 -- Capacity : 128
+Element at pos 37 ? : hello
+Size : 38 -- Capacity : 128
+Element at pos 36 ? : hello
+Size : 37 -- Capacity : 128
+Element at pos 35 ? : hello
+Size : 36 -- Capacity : 128
+Element at pos 34 ? : hello
+Size : 35 -- Capacity : 128
+Element at pos 33 ? : hello
+Size : 34 -- Capacity : 128
+Element at pos 32 ? : hello
+Size : 33 -- Capacity : 128
+Element at pos 31 ? : hello
+Size : 32 -- Capacity : 128
+Element at pos 30 ? : hello
+Size : 31 -- Capacity : 128
+Element at pos 29 ? : hello
+Size : 30 -- Capacity : 128
+Element at pos 28 ? : hello
+Size : 29 -- Capacity : 128
+Element at pos 27 ? : hello
+Size : 28 -- Capacity : 128
+Element at pos 26 ? : hello
+Size : 27 -- Capacity : 128
+Element at pos 25 ? : hello
+Size : 26 -- Capacity : 128
+Element at pos 24 ? : hello
+Size : 25 -- Capacity : 128
+Element at pos 23 ? : hello
+Size : 24 -- Capacity : 128
+Element at pos 22 ? : hello
+Size : 23 -- Capacity : 128
+Element at pos 21 ? : hello
+Size : 22 -- Capacity : 128
+Element at pos 20 ? : hello
+Size : 21 -- Capacity : 128
+Element at pos 19 ? : hello
+Size : 20 -- Capacity : 128
+Element at pos 18 ? : hello
+Size : 19 -- Capacity : 128
+Element at pos 17 ? : hello
+Size : 18 -- Capacity : 128
+Element at pos 16 ? : hello
+Size : 17 -- Capacity : 128
+Element at pos 15 ? : hello
+Size : 16 -- Capacity : 128
+Element at pos 14 ? : hello
+Size : 15 -- Capacity : 128
+Element at pos 13 ? : hello
+Size : 14 -- Capacity : 128
+Element at pos 12 ? : hello
+Size : 13 -- Capacity : 128
+Element at pos 11 ? : hello
+Size : 12 -- Capacity : 128
+Element at pos 10 ? : hello
+Size : 11 -- Capacity : 128
+Element at pos 9 ? : hello
+Size : 10 -- Capacity : 128
+Element at pos 8 ? : hello
+Size : 9 -- Capacity : 128
+Element at pos 7 ? : hello
+Size : 8 -- Capacity : 128
+Element at pos 6 ? : hello
+Size : 7 -- Capacity : 128
+Element at pos 5 ? : hello
+Size : 6 -- Capacity : 128
+Element at pos 4 ? : hello
+Size : 5 -- Capacity : 128
+Element at pos 3 ? : hello
+Size : 4 -- Capacity : 128
+Element at pos 2 ? : hello
+Size : 3 -- Capacity : 128
+Element at pos 1 ? : hello
+Size : 2 -- Capacity : 128
+Element at pos 0 ? : hello
+Size : 1 -- Capacity : 128
+Testing pop_back on empty vector
+Testing out_of_range at() call
+Vector is empty ? : 1
+Vector size ? : 0
+Testing get_allocator call on empty vector
+Size of allocator ? : 1
+Testing assign on int vector
+Size : 5 -- Capacity : 5
+Value after assign: 42
+Value after assign: 42
+Value after assign: 42
+Value after assign: 42
+Value after assign: 42
+Size : 17 -- Capacity : 17
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Value after assign: 21
+Size : 2 -- Capacity : 17
+Value after assign: 10
+Value after assign: 10
+Size : 2 -- Capacity : 23
+Value after assign: 10
+Value after assign: 10
+Testing simple iterator ctor
+Testing simple iterator begin/end
+Value at beginning of vector: 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 10
+Call to front returns : 42
+Call to back returns : 10
+Call Range ctor -1094795586
+Call to front returns : 42
+Call to back returns : 10
+Testing iterator operation and comparisons
+Value at beginning of vector: 42
+Value at beginning of vector: 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 21
+Value at vector : 10
+Value at vector : 21
+Value at vector : 42
+Value at vector : 21
+Value at vector : 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 10
+Value at vector : 0
+Iterator comparison > result : 0
+Iterator comparison < result : 1
+Iterator comparison <= result : 1
+Iterator comparison >= result: 0
+ Iterator comparison == result : 0
+Iterator comparison << result : 1
+Testing simple iterator begin/end
+Value at beginning of vector: 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 10
+Call to front returns : 42
+Call to back returns : 10
+Call Range ctor -1094795586
+Call to front returns : 42
+Call to back returns : 10
+Testing const iterator operation and comparisons
+Value at beginning of vector: 42
+Value at beginning of vector: 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 21
+Value at vector : 10
+Value at vector : 21
+Value at vector : 42
+Value at vector : 21
+Value at vector : 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 10
+Value at vector : 0
+Iterator comparison > result : 0
+Iterator comparison < result : 1
+Iterator comparison <= result : 1
+Iterator comparison >= result: 0
+ Iterator comparison == result : 0
+Iterator comparison != result : 1
+Testing const iterator operation and comparisons
+Value at beginning of vector: 42
+Value at beginning of vector: 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 21
+Value at vector : 10
+Value at vector : 21
+Value at vector : 42
+Value at vector : 21
+Value at vector : 42
+Value at vector : 42
+Value at vector : 21
+Value at vector : 10
+Value at vector : 0
+Iterator comparison > result : 0
+Iterator comparison < result : 0
+Iterator comparison <= result : 1
+Iterator comparison >= result: 1
+ Iterator comparison == result : 1
+Iterator comparison != result : 0
+Testing simple iterator ctor for strings
+Testing simple iterator begin/end for strings
+Value at beginning of vector: banana
+Value at vector : banana
+Value at vector : papaya
+Value at vector : apple
+Call to front returns : banana
+Call to back returns : apple
+Call to front returns : banana
+Call to back returns : apple
+Testing iterator operation and comparisons for strings
+Value at beginning of vector: banana
+Value at vector : banana
+Value at vector : papaya
+Value at vector : papaya
+Value at vector : apple
+Value at vector : papaya
+Value at vector : banana
+Value at vector : papaya
+Value at vector : banana
+Value at vector : banana
+Value at vector : papaya
+Value at vector : apple
+Value at vector : 0
+Iterator comparison result : 0
+Iterator comparison result : 1
+Iterator comparison result : 1
+Iterator comparison result : 0
+Iterator comparison result : 0
+Iterator comparison result : 1
+Testing simple reverse_iterator ctor and operator and comparison 
+42
+21
+10
+-1094795586
+42
+21
+10
+21
+21
+10
+42
+21
+42
+10
+10
+21
+Reversed iteration through vector yield: 10
+Reversed iteration through vector yield: 21
+Reversed iteration through vector yield: 42
+10
+21
+42
+Testing reverse_iterator comparisons and additional non - member operators
+Reverse iterator comparison > result : 0
+Reverse iterator comparison < result : 1
+Reverse iterator comparison <= result : 1
+Reverse iterator comparison >= result : 0
+Reverse iterator comparison == result : 0
+Reverse iterator comparison != result : 1
+Advancing rit with op+
+10
+Diff between 2 rit :-3
+Testing simple reverse_iterator ctor and operator and comparison 
+42
+21
+10
+-1094795586
+42
+21
+10
+21
+21
+10
+42
+21
+42
+10
+10
+21
+Testing const_reverse_iterator comparisons and additional non-member operators
+Reverse iterator comparison > result : 0
+Reverse iterator comparison < result : 1
+Reverse iterator comparison <= result : 1
+Reverse iterator comparison >= result : 0
+Reverse iterator comparison == result : 0
+Reverse iterator comparison != result : 1
+Advancing rit with op+
+10
+Diff between 2 rit :-3
+Testing looping on reserve calls
+Size : 3 -- Capacity : 4
+Size : 3 -- Capacity : 4
+Size : 3 -- Capacity : 4
+Size : 3 -- Capacity : 4
+Size : 3 -- Capacity : 4
+Size : 3 -- Capacity : 5
+Size : 3 -- Capacity : 6
+Size : 3 -- Capacity : 7
+Size : 3 -- Capacity : 8
+Size : 3 -- Capacity : 9
+Size : 3 -- Capacity : 10
+Size : 3 -- Capacity : 11
+Size : 3 -- Capacity : 12
+Size : 3 -- Capacity : 13
+Size : 3 -- Capacity : 14
+Size : 3 -- Capacity : 15
+Size : 3 -- Capacity : 16
+Size : 3 -- Capacity : 17
+Size : 3 -- Capacity : 18
+Size : 3 -- Capacity : 19
+Size : 3 -- Capacity : 20
+Size : 3 -- Capacity : 21
+Size : 3 -- Capacity : 22
+Size : 3 -- Capacity : 23
+Size : 3 -- Capacity : 24
+Size : 3 -- Capacity : 25
+Size : 3 -- Capacity : 26
+Size : 3 -- Capacity : 27
+Size : 3 -- Capacity : 28
+Size : 3 -- Capacity : 29
+Size : 3 -- Capacity : 30
+Size : 3 -- Capacity : 31
+Size : 3 -- Capacity : 32
+Size : 3 -- Capacity : 33
+Size : 3 -- Capacity : 34
+Size : 3 -- Capacity : 35
+Size : 3 -- Capacity : 36
+Size : 3 -- Capacity : 37
+Size : 3 -- Capacity : 38
+Size : 3 -- Capacity : 39
+Size : 3 -- Capacity : 40
+Size : 3 -- Capacity : 41
+Size : 3 -- Capacity : 42
+Size : 3 -- Capacity : 43
+Size : 3 -- Capacity : 44
+Size : 3 -- Capacity : 45
+Size : 3 -- Capacity : 46
+Size : 3 -- Capacity : 47
+Size : 3 -- Capacity : 48
+Size : 3 -- Capacity : 49
+Size : 3 -- Capacity : 50
+Size : 3 -- Capacity : 51
+Size : 3 -- Capacity : 52
+Size : 3 -- Capacity : 53
+Size : 3 -- Capacity : 54
+Size : 3 -- Capacity : 55
+Size : 3 -- Capacity : 56
+Size : 3 -- Capacity : 57
+Size : 3 -- Capacity : 58
+Size : 3 -- Capacity : 59
+Size : 3 -- Capacity : 60
+Size : 3 -- Capacity : 61
+Size : 3 -- Capacity : 62
+Size : 3 -- Capacity : 63
+Size : 3 -- Capacity : 64
+Size : 3 -- Capacity : 65
+Size : 3 -- Capacity : 66
+Size : 3 -- Capacity : 67
+Size : 3 -- Capacity : 68
+Size : 3 -- Capacity : 69
+Size : 3 -- Capacity : 70
+Size : 3 -- Capacity : 71
+Size : 3 -- Capacity : 72
+Size : 3 -- Capacity : 73
+Size : 3 -- Capacity : 74
+Size : 3 -- Capacity : 75
+Size : 3 -- Capacity : 76
+Size : 3 -- Capacity : 77
+Size : 3 -- Capacity : 78
+Size : 3 -- Capacity : 79
+Size : 3 -- Capacity : 80
+Size : 3 -- Capacity : 81
+Size : 3 -- Capacity : 82
+Size : 3 -- Capacity : 83
+Size : 3 -- Capacity : 84
+Size : 3 -- Capacity : 85
+Size : 3 -- Capacity : 86
+Size : 3 -- Capacity : 87
+Size : 3 -- Capacity : 88
+Size : 3 -- Capacity : 89
+Size : 3 -- Capacity : 90
+Size : 3 -- Capacity : 91
+Size : 3 -- Capacity : 92
+Size : 3 -- Capacity : 93
+Size : 3 -- Capacity : 94
+Size : 3 -- Capacity : 95
+Size : 3 -- Capacity : 96
+Size : 3 -- Capacity : 97
+Size : 3 -- Capacity : 98
+Size : 3 -- Capacity : 99
+Call to front returns : 42
+Call to back returns : 10
+Testing reserve call with max_size
+Testing clear
+Size : 42 -- Capacity : 42
+Size : 0 -- Capacity : 42
+Size : 0 -- Capacity : 42
+Testing simple insert on int
+Size : 0 -- Capacity : 0
+Value inserted : 2
+Value inserted : 3
+Size : 2 -- Capacity : 2
+Value inserted : 1
+Size : 3 -- Capacity : 4
+Value inserted : 42
+Size : 4 -- Capacity : 4
+Value inserted : 1
+Value inserted : 42
+Value inserted : 2
+Value inserted : 3
+Testing simple insert on str
+Size : 0 -- Capacity : 0
+Value inserted : apple
+Value inserted : banana
+Size : 2 -- Capacity :2
+Value inserted : cacao
+Size : 3 -- Capacity :4
+Value inserted : chips
+Size : 4 -- Capacity :4
+Value inserted : cacao
+Value inserted : chips
+Value inserted : apple
+Value inserted : banana
+Testing insert count values on int
+Size : 0 -- Capacity : 0
+Size : 5 -- Capacity : 5
+Size : 10 -- Capacity : 10
+Size : 15 -- Capacity : 20
+Size : 20 -- Capacity : 20
+Value inserted : 5
+Value inserted : 5
+Value inserted : 5
+Value inserted : 5
+Value inserted : 5
+Value inserted : 42
+Value inserted : 42
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 42
+Value inserted : 42
+Value inserted : 42
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Testing insert count values on str
+Size : 0 -- Capacity : 0
+Size : 5 -- Capacity : 5
+Size : 10 -- Capacity : 10
+Size : 15 -- Capacity : 20
+Size : 20 -- Capacity : 20
+Value inserted : cacao
+Value inserted : cacao
+Value inserted : cacao
+Value inserted : cacao
+Value inserted : cacao
+Value inserted : apple
+Value inserted : apple
+Value inserted : banana
+Value inserted : banana
+Value inserted : banana
+Value inserted : banana
+Value inserted : banana
+Value inserted : apple
+Value inserted : apple
+Value inserted : apple
+Value inserted : caffafle
+Value inserted : caffafle
+Value inserted : caffafle
+Value inserted : caffafle
+Value inserted : caffafle
+Testing insert a range of value on int
+Size : 0 -- Capacity : 0
+Size : 5 -- Capacity : 5
+Size : 10 -- Capacity : 10
+Size : 15 -- Capacity : 20
+Size : 20 -- Capacity : 20
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 42
+Value inserted : 42
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 21
+Value inserted : 42
+Value inserted : 42
+Value inserted : 42
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Value inserted : 10
+Testing erase a value from int vector
+Size : 5 -- Capacity : 5
+Iterator following last removed el: 42
+Size : 4 -- Capacity : 5
+value in vector after erase : 42
+value in vector after erase : 42
+value in vector after erase : 42
+value in vector after erase : 42
+Iterator following last removed el: 42
+Size : 3 -- Capacity : 5
+value in vector after erase : 42
+value in vector after erase : 42
+value in vector after erase : 42
+Iterator following last removed el is v1.end(): 1
+Size : 2 -- Capacity : 5
+value in vector after erase : 42
+value in vector after erase : 42
+Testing erase a value from str vector
+Size : 5 -- Capacity : 5
+Iterator following last removed el: banana
+Size : 4 -- Capacity : 5
+value in vector after erase : banana
+value in vector after erase : banana
+value in vector after erase : banana
+value in vector after erase : banana
+Iterator following last removed el: banana
+Size : 3 -- Capacity : 5
+value in vector after erase : banana
+value in vector after erase : banana
+value in vector after erase : banana
+Iterator following last removed el is v1.end(): 1
+Size : 2 -- Capacity : 5
+value in vector after erase : banana
+value in vector after erase : banana
+Testing erase a range of values from int vector
+Size : 20 -- Capacity : 32
+Iterator following last removed el: 1
+Size : 19 -- Capacity : 32
+value in vector after erase : 1
+value in vector after erase : 2
+value in vector after erase : 3
+value in vector after erase : 4
+value in vector after erase : 5
+value in vector after erase : 6
+value in vector after erase : 7
+value in vector after erase : 8
+value in vector after erase : 9
+value in vector after erase : 10
+value in vector after erase : 11
+value in vector after erase : 12
+value in vector after erase : 13
+value in vector after erase : 14
+value in vector after erase : 15
+value in vector after erase : 16
+value in vector after erase : 17
+value in vector after erase : 18
+value in vector after erase : 19
+Iterator following last removed eEEEEEEEEEEEEEl: 8
+Size : 7 -- Capacity : 32
+value in vector after erase : 1
+value in vector after erase : 2
+value in vector after erase : 3
+value in vector after erase : 4
+value in vector after erase : 5
+value in vector after erase : 6
+value in vector after erase : 7
+Iterator following last removed el is v1.end(): 1
+Size : 3 -- Capacity : 32
+value in vector after erase : 1
+value in vector after erase : 2
+value in vector after erase : 3
+Iterator following last removed el is v1.end(): 1
+Size : 3 -- Capacity : 32
+value in vector after erase : 1
+value in vector after erase : 2
+value in vector after erase : 3
+Iterator following last removed el: 1
+Size : 3 -- Capacity : 32
+value in vector after erase : 1
+value in vector after erase : 2
+value in vector after erase : 3
+Testing erase a range of values from std::string vector 
+Size : 20 -- Capacity : 32
+Iterator following last removed el: apples
+Size : 19 -- Capacity : 32
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+Iterator following last removed el: apples
+Size : 7 -- Capacity : 32
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+Iterator following last removed el is v1.end(): 1
+Size : 3 -- Capacity : 32
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+Iterator following last removed el is v1.end(): 1
+Size : 3 -- Capacity : 32
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+Iterator following last removed el: apples
+Size : 3 -- Capacity : 32
+value in vector after erase : apples
+value in vector after erase : apples
+value in vector after erase : apples
+Testing resize int vector
+Size : 30 -- Capacity : 32
+value in vector after resize : 0
+value in vector after resize : 1
+value in vector after resize : 2
+value in vector after resize : 3
+value in vector after resize : 4
+value in vector after resize : 5
+value in vector after resize : 6
+value in vector after resize : 7
+value in vector after resize : 8
+value in vector after resize : 9
+value in vector after resize : 10
+value in vector after resize : 11
+value in vector after resize : 12
+value in vector after resize : 13
+value in vector after resize : 14
+value in vector after resize : 15
+value in vector after resize : 16
+value in vector after resize : 17
+value in vector after resize : 18
+value in vector after resize : 19
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+value in vector after resize : 42
+Size : 20 -- Capacity : 32
+value in vector after resize : 0
+value in vector after resize : 1
+value in vector after resize : 2
+value in vector after resize : 3
+value in vector after resize : 4
+value in vector after resize : 5
+value in vector after resize : 6
+value in vector after resize : 7
+value in vector after resize : 8
+value in vector after resize : 9
+value in vector after resize : 10
+value in vector after resize : 11
+value in vector after resize : 12
+value in vector after resize : 13
+value in vector after resize : 14
+value in vector after resize : 15
+value in vector after resize : 16
+value in vector after resize : 17
+value in vector after resize : 18
+value in vector after resize : 19
+Size : 10 -- Capacity : 32
+value in vector after resize : 0
+value in vector after resize : 1
+value in vector after resize : 2
+value in vector after resize : 3
+value in vector after resize : 4
+value in vector after resize : 5
+value in vector after resize : 6
+value in vector after resize : 7
+value in vector after resize : 8
+value in vector after resize : 9
+Testing resize str vector
+Size : 30 -- Capacity : 32
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+value in vector after resize : banana
+Size : 20 -- Capacity : 32
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+Size : 10 -- Capacity : 32
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+value in vector after resize : potato
+Testing swap int vector
+Size : 20 -- Capacity : 32
+Size : 10 -- Capacity : 10
+Size : 10 -- Capacity : 10
+Size : 20 -- Capacity : 32
+value in vector after swap : 0
+value in vector after swap : 1
+value in vector after swap : 2
+value in vector after swap : 3
+value in vector after swap : 4
+value in vector after swap : 5
+value in vector after swap : 6
+value in vector after swap : 7
+value in vector after swap : 8
+value in vector after swap : 9
+value in vector after swap : 10
+value in vector after swap : 11
+value in vector after swap : 12
+value in vector after swap : 13
+value in vector after swap : 14
+value in vector after swap : 15
+value in vector after swap : 16
+value in vector after swap : 17
+value in vector after swap : 18
+value in vector after swap : 19
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+Testing swap int vector
+Size : 20 -- Capacity : 32
+Size : 10 -- Capacity : 10
+Size : 10 -- Capacity : 10
+Size : 20 -- Capacity : 32
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : hello
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+value in vector after swap : world
+Testing external swap int vector
+Size : 20 -- Capacity : 32
+Size : 10 -- Capacity : 10
+Size : 10 -- Capacity : 10
+Size : 20 -- Capacity : 32
+value in vector after swap : 0
+value in vector after swap : 1
+value in vector after swap : 2
+value in vector after swap : 3
+value in vector after swap : 4
+value in vector after swap : 5
+value in vector after swap : 6
+value in vector after swap : 7
+value in vector after swap : 8
+value in vector after swap : 9
+value in vector after swap : 10
+value in vector after swap : 11
+value in vector after swap : 12
+value in vector after swap : 13
+value in vector after swap : 14
+value in vector after swap : 15
+value in vector after swap : 16
+value in vector after swap : 17
+value in vector after swap : 18
+value in vector after swap : 19
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+value in vector after swap : 42
+TESTING OPERATORS both empty vector
+s1 < s2: 0
+s1 > s2: 0
+s1 == s2: 1
+s1 != s2: 0
+s1 <= s2: 0
+s1 >= s2: 0
+TESTING OPERATORS one empty vector
+s1 < s3: 1
+s1 > s3: 0
+s1 == s3: 0
+s1 != s3: 1
+s1 <= s3: 1
+s1 >= s3: 1
+TESTING OPERATORS non empty
+s6 < s3: 1
+s6 > s3: 0
+s6 == s3: 0
+s6 != s3: 1
+s6 <= s3: 1
+s6 >= s3: 1
+TESTING OPERATORS one vector is a subset of the other
+s5 < s3: 1
+s5 > s3: 0
+s5 == s3: 0
+s5 != s3: 1
+s5 <= s3: 1
+s5 >= s3: 1
+TESTING OPERATORS equal vectors
+s4 < s3: 0
+s4 > s3: 0
+s4 == s3: 1
+s4 != s3: 0
+s4 <= s3: 0
+s4 >= s3: 0
